@@ -4,6 +4,7 @@ import {
   isAuthenticatedUser,
 } from "@/backend/middlewares/auth";
 import Category from "@/backend/models/category";
+import Type from "@/backend/models/type";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -21,13 +22,40 @@ export async function POST(req) {
   const body = await req.json();
 
   if (totalCategory < 6) {
-    // Créer la catégorie avec les données envoyées (incluant isActive)
+    // Vérifier que le type existe et est actif
+    const type = await Type.findById(body.type);
+
+    if (!type) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Le type spécifié n'existe pas",
+        },
+        { status: 400 },
+      );
+    }
+
+    if (!type.isActive) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Impossible d'ajouter une catégorie à un type inactif",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Créer la catégorie avec les données envoyées
     const categoryData = {
       categoryName: body.categoryName,
-      isActive: body.isActive || false, // Par défaut false si non spécifié
+      type: body.type,
+      isActive: body.isActive || false,
     };
 
     const categoryAdded = await Category.create(categoryData);
+
+    // Populate le type avant de retourner
+    await categoryAdded.populate("type", "nom slug isActive");
 
     return NextResponse.json(
       {
@@ -60,11 +88,13 @@ export async function GET(req) {
   // Connexion DB
   await dbConnect();
 
-  // Récupérer toutes les catégories triées par statut (actives d'abord)
-  const categories = await Category.find().sort({
-    isActive: -1,
-    categoryName: 1,
-  });
+  // Récupérer toutes les catégories triées par statut (actives d'abord) avec leur type
+  const categories = await Category.find()
+    .populate("type", "nom slug isActive")
+    .sort({
+      isActive: -1,
+      categoryName: 1,
+    });
 
   return NextResponse.json(
     {

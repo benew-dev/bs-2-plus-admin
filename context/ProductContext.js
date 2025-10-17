@@ -34,18 +34,36 @@ export const ProductProvider = ({ children }) => {
 
   const newProduct = async (product) => {
     try {
+      // Validation côté client
+      if (!product.type) {
+        setError("Le type du produit est obligatoire");
+        toast.error("Le type du produit est obligatoire");
+        return;
+      }
+
+      if (!product.category) {
+        setError("La catégorie du produit est obligatoire");
+        toast.error("La catégorie du produit est obligatoire");
+        return;
+      }
+
       const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
         product,
       );
 
       if (data?.success) {
-        toast.success("Product added successfully");
+        toast.success("Produit ajouté avec succès");
         router.push("/admin/products");
         router.refresh();
       }
     } catch (error) {
-      setError(error?.response?.data?.message);
+      const errorMessage =
+        error?.response?.data?.error ||
+        error?.response?.data?.message ||
+        "Échec de l'ajout du produit";
+      setError(errorMessage);
+      toast.error(errorMessage);
     }
   };
 

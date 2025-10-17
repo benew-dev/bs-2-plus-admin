@@ -7,7 +7,7 @@ const Settings = dynamic(() => import("@/components/settings/Settings"), {
 });
 
 import {
-  getCategoryData,
+  getTypesAndCategories,
   getPaymentTypeData,
 } from "@/backend/utils/server-only-methods";
 
@@ -16,10 +16,16 @@ export const metadata = {
 };
 
 const SettingsPage = async () => {
-  const categoryData = await getCategoryData();
+  const { types, categories } = await getTypesAndCategories();
   const paymentTypeData = await getPaymentTypeData();
 
-  return <Settings dataCategory={categoryData} dataPayment={paymentTypeData} />;
+  return (
+    <Settings
+      dataTypes={types}
+      dataCategories={categories}
+      dataPayment={paymentTypeData}
+    />
+  );
 };
 
 export default SettingsPage;

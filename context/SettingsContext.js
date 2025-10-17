@@ -8,57 +8,120 @@ import { toast } from "react-toastify";
 const SettingsContext = createContext();
 
 export const SettingsProvider = ({ children }) => {
+  const [types, setTypes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
 
   const router = useRouter();
 
-  const newPaymentType = async (platformName, platformNumber) => {
+  // ========== TYPE METHODS ==========
+  const newType = async (typeData) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/settings/paymentType`,
-        { paymentName: platformName, paymentNumber: platformNumber },
-      );
-
-      if (data) {
-        router.push("/admin/settings");
-        router.refresh();
-        toast.success("Payment type added successfully");
-        setLoading(false);
-      }
-    } catch (error) {
-      setError(error?.response?.data?.message);
-      toast.error(
-        error?.response?.data?.message || "Failed to add payment type",
-      );
-      setLoading(false);
-    }
-  };
-
-  // MISE À JOUR : Accepter maintenant un objet avec categoryName et isActive
-  const newCategory = async (categoryData) => {
-    try {
-      setLoading(true);
-
-      // Gérer le cas où on reçoit juste une string (compatibilité descendante)
       const requestData =
-        typeof categoryData === "string"
-          ? { categoryName: categoryData, isActive: false }
-          : categoryData;
+        typeof typeData === "string"
+          ? { nom: typeData, isActive: false }
+          : typeData;
 
       const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/settings/category`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/settings/type`,
         requestData,
       );
 
       if (data?.success) {
-        router.push("/admin/settings");
         router.refresh();
-        toast.success("Category added successfully");
+        toast.success("Type ajouté avec succès");
         setLoading(false);
+        return { success: true, data };
+      }
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error?.response?.data?.error || error?.response?.data?.message;
+      setError(errorMessage);
+      toast.error(errorMessage || "Échec de l'ajout du type");
+      setLoading(false);
+      throw error;
+    }
+  };
+
+  const toggleTypeStatus = async (typeId) => {
+    try {
+      const { data } = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/settings/type/toggle-status/${typeId}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (data.success) {
+        setTypes((prevTypes) =>
+          prevTypes.map((type) =>
+            type._id === typeId ? { ...type, isActive: !type.isActive } : type,
+          ),
+        );
+
+        toast.success(data.message);
+        router.refresh();
+        return { success: true, data };
+      } else {
+        throw new Error(data.message || "Failed to update type status");
+      }
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.message ||
+        error.message ||
+        "Failed to update type status";
+      setError(errorMessage);
+      toast.error(errorMessage);
+      throw error;
+    }
+  };
+
+  const deleteType = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/settings/type/${id}`,
+      );
+
+      if (data?.message && data.message.includes("successfully")) {
+        router.refresh();
+        toast.success("Type supprimé avec succès");
+        return { success: true, data };
+      } else {
+        throw new Error(data?.message || "Failed to delete type");
+      }
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.message ||
+        error.message ||
+        "Failed to delete type";
+      setError(errorMessage);
+      toast.error(errorMessage);
+      throw error;
+    }
+  };
+
+  // ========== CATEGORY METHODS ==========
+  const newCategory = async (categoryData) => {
+    try {
+      setLoading(true);
+
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/settings/category`,
+        categoryData,
+      );
+
+      if (data?.success) {
+        router.refresh();
+        toast.success("Catégorie ajoutée avec succès");
+        setLoading(false);
+        return { success: true, data };
       }
     } catch (error) {
       console.log(error);
@@ -66,13 +129,13 @@ export const SettingsProvider = ({ children }) => {
       toast.error(
         error?.response?.data?.error ||
           error?.response?.data?.message ||
-          "Failed to add category",
+          "Échec de l'ajout de la catégorie",
       );
       setLoading(false);
+      throw error;
     }
   };
 
-  // AMÉLIORATION : Meilleure gestion des erreurs et feedback
   const toggleCategoryStatus = async (categoryId) => {
     try {
       const { data } = await axios.put(
@@ -86,7 +149,6 @@ export const SettingsProvider = ({ children }) => {
       );
 
       if (data.success) {
-        // Mettre à jour la liste des catégories localement
         setCategories((prevCategories) =>
           prevCategories.map((category) =>
             category._id === categoryId
@@ -108,22 +170,19 @@ export const SettingsProvider = ({ children }) => {
         "Failed to update category status";
       setError(errorMessage);
       toast.error(errorMessage);
-      throw error; // Re-throw pour que le composant puisse gérer l'état de loading
+      throw error;
     }
   };
 
-  // AMÉLIORATION : Meilleure gestion des retours et erreurs
   const deleteCategory = async (id) => {
     try {
       const { data } = await axios.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/api/settings/category/${id}`,
       );
 
-      // Vérifier si la réponse contient un message de succès
       if (data?.message && data.message.includes("successfully")) {
-        router.push("/admin/settings");
         router.refresh();
-        toast.success("Category deleted successfully");
+        toast.success("Catégorie supprimée avec succès");
         return { success: true, data };
       } else {
         throw new Error(data?.message || "Failed to delete category");
@@ -139,18 +198,42 @@ export const SettingsProvider = ({ children }) => {
     }
   };
 
-  // AMÉLIORATION : Meilleure gestion des retours et erreurs
+  // ========== PAYMENT TYPE METHODS ==========
+  const newPaymentType = async (platformName, platformNumber) => {
+    try {
+      setLoading(true);
+
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/settings/paymentType`,
+        { paymentName: platformName, paymentNumber: platformNumber },
+      );
+
+      if (data) {
+        router.refresh();
+        toast.success("Moyen de paiement ajouté avec succès");
+        setLoading(false);
+        return { success: true, data };
+      }
+    } catch (error) {
+      setError(error?.response?.data?.message);
+      toast.error(
+        error?.response?.data?.message ||
+          "Échec de l'ajout du moyen de paiement",
+      );
+      setLoading(false);
+      throw error;
+    }
+  };
+
   const deletePayment = async (id) => {
     try {
       const { data } = await axios.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/api/settings/paymentType/${id}`,
       );
 
-      // Vérifier si la réponse contient un message de succès
       if (data?.message && data.message.includes("successfully")) {
-        router.push("/admin/settings");
         router.refresh();
-        toast.success("Payment type deleted successfully");
+        toast.success("Moyen de paiement supprimé avec succès");
         return { success: true, data };
       } else {
         throw new Error(data?.message || "Failed to delete payment type");
@@ -173,14 +256,19 @@ export const SettingsProvider = ({ children }) => {
   return (
     <SettingsContext.Provider
       value={{
+        types,
         categories,
         error,
         loading,
+        setTypes,
         setCategories,
-        newPaymentType,
+        newType,
+        toggleTypeStatus,
+        deleteType,
         newCategory,
         toggleCategoryStatus,
         deleteCategory,
+        newPaymentType,
         deletePayment,
         clearErrors,
       }}

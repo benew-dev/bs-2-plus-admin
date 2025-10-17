@@ -229,24 +229,6 @@ export const getPaymentTypeData = async () => {
   return data;
 };
 
-export const getCategoryData = async () => {
-  const nextCookies = await cookies();
-
-  const cookieName = getCookieName();
-  const nextAuthSessionToken = nextCookies.get(cookieName);
-
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/settings/category`,
-    {
-      headers: {
-        Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
-      },
-    },
-  );
-
-  return data;
-};
-
 export const getAllUsers = async (searchParams) => {
   const nextCookies = await cookies();
 
@@ -306,6 +288,80 @@ export const getSingleUser = async (id) => {
   );
 
   return data;
+};
+
+export const getTypesAndCategories = async () => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  try {
+    const [typesResponse, categoriesResponse] = await Promise.all([
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/settings/type`, {
+        headers: {
+          Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+      }),
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/settings/category`, {
+        headers: {
+          Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+      }),
+    ]);
+
+    return {
+      types: typesResponse.data.types || [],
+      categories: categoriesResponse.data.categories || [],
+    };
+  } catch (error) {
+    console.error("Error fetching types and categories:", error);
+    return {
+      types: [],
+      categories: [],
+    };
+  }
+};
+
+export const getActiveTypesAndCategories = async () => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  try {
+    const [typesResponse, categoriesResponse] = await Promise.all([
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/settings/type`, {
+        headers: {
+          Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+      }),
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/settings/category`, {
+        headers: {
+          Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+      }),
+    ]);
+
+    // Filtrer pour ne garder que les types et catégories actifs
+    const activeTypes = (typesResponse.data.types || []).filter(
+      (t) => t.isActive,
+    );
+    const activeCategories = (categoriesResponse.data.categories || []).filter(
+      (c) => c.isActive,
+    );
+
+    return {
+      types: activeTypes,
+      categories: activeCategories,
+    };
+  } catch (error) {
+    console.error("Error fetching active types and categories:", error);
+    return {
+      types: [],
+      categories: [],
+    };
+  }
 };
 
 // NOUVELLE MÉTHODE POUR LE DASHBOARD
