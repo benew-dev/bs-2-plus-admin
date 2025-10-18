@@ -89,7 +89,7 @@ const NewProduct = ({ initialTypes = [], initialCategories = [] }) => {
     newProduct(productData);
   };
 
-  const activeTypes = types?.filter((t) => t.isActive) || [];
+  const activeTypes = initialTypes?.filter((t) => t.isActive) || [];
   const hasActiveTypes = activeTypes.length > 0;
   const hasCategories = filteredCategories.length > 0;
 
