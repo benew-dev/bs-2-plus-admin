@@ -209,10 +209,11 @@ const UploadImages = memo(({ id }) => {
                         }`}
                       />
                     </div>
+                    {/* MODIFICATION ICI : Toujours visible sur mobile, hover sur desktop */}
                     <button
                       onClick={() => handleRemoveImage(img)}
                       disabled={loading}
-                      className="absolute -top-1.5 -right-1.5 sm:-top-2 sm:-right-2 w-7 h-7 sm:w-8 sm:h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 disabled:opacity-50 shadow-lg"
+                      className="absolute -top-1.5 -right-1.5 sm:-top-2 sm:-right-2 w-7 h-7 sm:w-8 sm:h-8 bg-red-500 text-white rounded-full flex items-center justify-center transition-all hover:bg-red-600 disabled:opacity-50 shadow-lg sm:opacity-0 sm:group-hover:opacity-100"
                       title="Supprimer"
                     >
                       <svg
