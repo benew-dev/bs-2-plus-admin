@@ -6,7 +6,6 @@ import {
 import Category from "@/backend/models/category";
 import Type from "@/backend/models/type";
 import Product from "@/backend/models/product";
-import User from "@/backend/models/user";
 import APIFilters from "@/backend/utils/APIFilters";
 import { NextResponse } from "next/server";
 
@@ -60,131 +59,142 @@ export async function GET(req) {
   );
 }
 
-export async function PUT(req, { params }) {
-  // Vérifier l'authentification
-  await isAuthenticatedUser(req, NextResponse);
-
-  // Vérifier le role
-  authorizeRoles(NextResponse, "admin");
-
-  const { id } = await params;
-  await dbConnect();
-
-  let product = await Product.findById(id);
-
-  if (!product) {
-    return NextResponse.json(
-      { message: "Product not found." },
-      { status: 404 },
-    );
-  }
-
+export async function POST(req) {
   try {
+    // Vérifier l'authentification
+    await isAuthenticatedUser(req, NextResponse);
+
+    // Vérifier le role
+    authorizeRoles(NextResponse, "admin");
+
+    // Connexion DB
+    await dbConnect();
+
     const body = await req.json();
 
-    // Si le type ou la catégorie sont modifiés, faire les validations
-    if (body.type || body.category) {
-      // Vérifier le type si fourni
-      if (body.type) {
-        const type = await Type.findById(body.type);
-        if (!type) {
-          return NextResponse.json(
-            {
-              success: false,
-              error: "Le type spécifié n'existe pas",
-            },
-            { status: 400 },
-          );
-        }
-
-        if (!type.isActive) {
-          return NextResponse.json(
-            {
-              success: false,
-              error: "Impossible d'associer un produit à un type inactif",
-            },
-            { status: 400 },
-          );
-        }
-      }
-
-      // Vérifier la catégorie si fournie
-      if (body.category) {
-        const category = await Category.findById(body.category);
-        if (!category) {
-          return NextResponse.json(
-            {
-              success: false,
-              error: "La catégorie spécifiée n'existe pas",
-            },
-            { status: 400 },
-          );
-        }
-
-        if (!category.isActive) {
-          return NextResponse.json(
-            {
-              success: false,
-              error:
-                "Impossible d'associer un produit à une catégorie inactive",
-            },
-            { status: 400 },
-          );
-        }
-
-        // Vérifier la cohérence type/catégorie
-        const typeToCheck = body.type || product.type;
-        if (category.type.toString() !== typeToCheck.toString()) {
-          return NextResponse.json(
-            {
-              success: false,
-              error:
-                "La catégorie sélectionnée n'appartient pas au type choisi",
-            },
-            { status: 400 },
-          );
-        }
-      }
+    // Validation des champs requis
+    if (
+      !body.name ||
+      !body.description ||
+      !body.price ||
+      body.stock === undefined
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Tous les champs requis doivent être renseignés",
+        },
+        { status: 400 },
+      );
     }
 
-    // Pseudo-code de la logique d'activation
-    let warningMessage = null;
-
-    // Vérifier si on veut activer le produit
-    if (body.isActive === true) {
-      // Récupérer le produit avec sa catégorie et son type
-      const productWithRelations = await Product.findById(id)
-        .populate("type")
-        .populate("category");
-
-      // Vérifier si le type est inactif
-      if (!productWithRelations.type.isActive) {
-        delete body.isActive;
-        warningMessage = `Product updated successfully, but cannot be activated because the type "${productWithRelations.type.nom}" is inactive. Activate the type first.`;
-      }
-      // Vérifier si la catégorie est inactive
-      else if (!productWithRelations.category.isActive) {
-        delete body.isActive;
-        warningMessage = `Product updated successfully, but cannot be activated because the category "${productWithRelations.category.categoryName}" is inactive. Activate the category first.`;
-      }
+    if (!body.type) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Le type du produit est obligatoire",
+        },
+        { status: 400 },
+      );
     }
 
-    // Mettre à jour le produit
-    product = await Product.findByIdAndUpdate(id, body, {
-      new: true,
-    }).populate([
+    if (!body.category) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "La catégorie du produit est obligatoire",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Vérifier que le type existe et est actif
+    const type = await Type.findById(body.type);
+    if (!type) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Le type spécifié n'existe pas",
+        },
+        { status: 400 },
+      );
+    }
+
+    if (!type.isActive) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Impossible de créer un produit avec un type inactif",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Vérifier que la catégorie existe et est active
+    const category = await Category.findById(body.category);
+    if (!category) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "La catégorie spécifiée n'existe pas",
+        },
+        { status: 400 },
+      );
+    }
+
+    if (!category.isActive) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Impossible de créer un produit avec une catégorie inactive",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Vérifier que la catégorie appartient au type
+    if (category.type.toString() !== body.type.toString()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "La catégorie sélectionnée n'appartient pas au type choisi",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Créer le produit (le middleware pre-save du modèle fera aussi les validations)
+    const product = await Product.create({
+      name: body.name,
+      description: body.description,
+      price: body.price,
+      stock: body.stock,
+      type: body.type,
+      category: body.category,
+      isActive: false, // Par défaut inactif jusqu'à l'ajout d'images
+    });
+
+    // Populate pour renvoyer les données complètes
+    await product.populate([
       { path: "type", select: "nom slug isActive" },
       { path: "category", select: "categoryName slug isActive" },
     ]);
 
     return NextResponse.json(
-      { success: true, product, warning: warningMessage },
-      { status: 200 },
+      {
+        success: true,
+        message:
+          "Produit créé avec succès. Veuillez maintenant ajouter des images.",
+        product,
+      },
+      {
+        status: 201,
+      },
     );
   } catch (error) {
-    console.error("Error updating product:", error);
+    console.error("Error creating product:", error);
 
-    // Gérer les erreurs de validation
+    // Gérer les erreurs de validation Mongoose
     if (error.name === "ValidationError") {
       return NextResponse.json(
         {
@@ -195,10 +205,22 @@ export async function PUT(req, { params }) {
       );
     }
 
+    // Gérer les erreurs de duplication (slug unique)
+    if (error.code === 11000) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Un produit avec ce nom existe déjà",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Erreur générique
     return NextResponse.json(
       {
         success: false,
-        error: "Une erreur est survenue lors de la mise à jour du produit",
+        error: "Une erreur est survenue lors de la création du produit",
       },
       { status: 500 },
     );
