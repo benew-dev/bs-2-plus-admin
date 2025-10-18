@@ -50,7 +50,7 @@ export const SettingsProvider = ({ children }) => {
   const toggleTypeStatus = async (typeId) => {
     try {
       const { data } = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/settings/type/toggle-status/${typeId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/settings/type/${typeId}/toggle-status`,
         {},
         {
           headers: {
