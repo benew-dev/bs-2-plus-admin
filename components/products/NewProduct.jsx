@@ -40,8 +40,8 @@ const NewProduct = ({ initialTypes = [], initialCategories = [] }) => {
 
   // Filtrer les catégories selon le type sélectionné
   useEffect(() => {
-    if (product.type && categories && categories.length > 0) {
-      const filtered = categories.filter(
+    if (product.type && initialCategories && initialCategories.length > 0) {
+      const filtered = initialCategories.filter(
         (cat) => cat.type?._id === product.type && cat.isActive,
       );
       setFilteredCategories(filtered);
