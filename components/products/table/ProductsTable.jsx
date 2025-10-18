@@ -83,6 +83,15 @@ const ProductsTable = ({ products, itemCount, deleteHandler }) => {
                       Vendus
                     </div>
                   </th>
+
+                  {/* NOUVEAU : Colonne Type */}
+                  <th scope="col" className="px-6 py-4">
+                    <div className="flex items-center gap-2">
+                      <i className="fa fa-layer-group text-gray-500"></i>
+                      Type
+                    </div>
+                  </th>
+
                   <th scope="col" className="px-6 py-4">
                     <div className="flex items-center gap-2">
                       <i className="fa fa-folder text-gray-500"></i>
@@ -143,6 +152,12 @@ const ProductsTable = ({ products, itemCount, deleteHandler }) => {
                       <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
                         <i className="fa fa-shopping-cart text-xs"></i>
                         {product?.sold || 0}
+                      </span>
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-medium">
+                        <i className="fa fa-layer-group"></i>
+                        {product?.type?.nom || "Non défini"}
                       </span>
                     </td>
                     <td className="px-6 py-3">
@@ -269,6 +284,13 @@ const ProductsTable = ({ products, itemCount, deleteHandler }) => {
                     <p className="text-xs text-gray-500 mb-0.5">Vendus</p>
                     <p className="font-bold text-sm sm:text-base text-blue-600">
                       {product?.sold || 0}
+                    </p>
+                  </div>
+                  {/* NOUVEAU : Type */}
+                  <div className="bg-gray-50 rounded-lg p-2">
+                    <p className="text-xs text-gray-500 mb-0.5">Type</p>
+                    <p className="font-medium text-xs sm:text-sm text-indigo-700 truncate">
+                      {product?.type?.nom || "Non défini"}
                     </p>
                   </div>
                   <div className="bg-gray-50 rounded-lg p-2 col-span-2">

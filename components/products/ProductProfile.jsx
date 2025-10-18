@@ -62,7 +62,15 @@ const ProductProfile = ({ data }) => {
                   ></span>
                   {product?.isActive ? "Actif" : "Inactif"}
                 </span>
+
+                {/* NOUVEAU : Badge Type */}
+                <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-indigo-100 text-indigo-700 rounded-full text-xs sm:text-sm font-semibold border-2 border-indigo-200 break-words">
+                  <i className="fa fa-layer-group mr-1.5"></i>
+                  {product?.type?.nom || "Sans type"}
+                </span>
+
                 <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-purple-100 text-purple-700 rounded-full text-xs sm:text-sm font-semibold border-2 border-purple-200 break-words">
+                  <i className="fa fa-tag mr-1.5"></i>
                   {product?.category?.categoryName || "Sans catégorie"}
                 </span>
               </div>

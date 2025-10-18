@@ -3,12 +3,13 @@ import React from "react";
 import { arrayHasData } from "@/helpers/helpers";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const ProductsFilter = ({ open, setLoading, categories }) => {
+const ProductsFilter = ({ open, setLoading, categories, types }) => {
   const router = useRouter();
   const params = useSearchParams();
 
   const stockFilter = params.get("stock");
   const categoryFilter = params.get("category");
+  const typeFilter = params.get("type");
 
   let queryParams;
 
@@ -52,12 +53,12 @@ const ProductsFilter = ({ open, setLoading, categories }) => {
             Filtrer les produits
           </h4>
           <p className="text-xs sm:text-sm text-gray-500">
-            Affinez votre recherche par stock et catégorie
+            Affinez votre recherche par stock, type et catégorie
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
         {/* Filtres par stock - RESPONSIVE */}
         <div>
           <h5 className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3 uppercase tracking-wide flex items-center gap-2">
@@ -100,6 +101,53 @@ const ProductsFilter = ({ open, setLoading, categories }) => {
                 </span>
               </span>
             </label>
+          </div>
+        </div>
+
+        {/* Filtres par type - NOUVEAU */}
+        <div>
+          <h5 className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3 uppercase tracking-wide flex items-center gap-2">
+            <i className="fa fa-layer-group text-gray-500 text-xs sm:text-sm"></i>
+            Types
+          </h5>
+          <div className="space-y-2 sm:space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+            {arrayHasData(types) ? (
+              <div className="w-full p-6 sm:p-8 text-center">
+                <div className="mx-auto w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                  <i className="fa fa-inbox text-gray-400 text-xl sm:text-2xl"></i>
+                </div>
+                <p className="font-bold text-base sm:text-lg text-gray-600">
+                  Aucun type trouvé
+                </p>
+                <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                  Créez des types pour organiser vos produits
+                </p>
+              </div>
+            ) : (
+              types?.map((type) => {
+                return (
+                  <label
+                    key={type?._id}
+                    className="flex items-center p-2 sm:p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-indigo-400 hover:bg-indigo-50 transition-all duration-200 group"
+                  >
+                    <input
+                      name="type"
+                      type="checkbox"
+                      value={type?._id}
+                      className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 flex-shrink-0"
+                      defaultChecked={typeFilter === type?._id}
+                      onClick={(e) => handleClick(e.target)}
+                    />
+                    <span className="ml-2 sm:ml-3 flex items-center gap-1.5 sm:gap-2 min-w-0">
+                      <i className="fa fa-layer-group text-indigo-600 text-xs sm:text-sm flex-shrink-0"></i>
+                      <span className="text-xs sm:text-sm font-medium text-gray-700 group-hover:text-indigo-700 truncate">
+                        {type?.nom}
+                      </span>
+                    </span>
+                  </label>
+                );
+              })
+            )}
           </div>
         </div>
 
@@ -168,7 +216,7 @@ const ProductsFilter = ({ open, setLoading, categories }) => {
       </div>
 
       {/* Bouton reset - RESPONSIVE */}
-      {(stockFilter || categoryFilter) && (
+      {(stockFilter || categoryFilter || typeFilter) && (
         <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200">
           <button
             onClick={() => {
