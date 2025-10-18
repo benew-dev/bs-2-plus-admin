@@ -59,7 +59,7 @@ const NewProduct = ({ initialTypes = [], initialCategories = [] }) => {
       setFilteredCategories([]);
       setProduct((prev) => ({ ...prev, category: "" }));
     }
-  }, [product.type, categories]);
+  }, [product.type, initialCategories]);
 
   const { name, description, price, stock, type, category } = product;
 
