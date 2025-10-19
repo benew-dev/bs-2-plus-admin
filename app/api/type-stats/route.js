@@ -6,9 +6,19 @@ import {
   getTypeConversionRates,
   getTypeMonthlyComparison, // ✅ AJOUTER
 } from "@/backend/pipelines/typePipelines";
+import {
+  authorizeRoles,
+  isAuthenticatedUser,
+} from "@/backend/middlewares/auth";
 
 export async function GET(req) {
   try {
+    // Vérifier l'authentification
+    await isAuthenticatedUser(req, NextResponse);
+
+    // Vérifier le role
+    authorizeRoles(NextResponse, "admin");
+
     await connectDB();
 
     const [analytics, trends, conversion, comparison] = await Promise.all([

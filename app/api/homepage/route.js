@@ -1,10 +1,20 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/backend/config/dbConnect";
 import HomePage from "@/backend/models/homepage";
+import {
+  authorizeRoles,
+  isAuthenticatedUser,
+} from "@/backend/middlewares/auth";
 
 // GET - Récupérer la page d'accueil
 export async function GET(req) {
   try {
+    // Vérifier l'authentification
+    await isAuthenticatedUser(req, NextResponse);
+
+    // Vérifier le role
+    authorizeRoles(NextResponse, "admin");
+
     await connectDB();
 
     const homePage = await HomePage.findOne().sort({ createdAt: -1 });
