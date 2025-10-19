@@ -19,6 +19,11 @@ const orderItemSchema = new mongoose.Schema({
     trim: true,
     maxlength: [100, "Le nom ne peut pas dépasser 100 caractères"],
   },
+  type: {
+    type: String,
+    required: [true, "Type obligatoire"],
+    trim: true,
+  },
   category: {
     type: String,
     required: [true, "Catégorie obligatoire"],
