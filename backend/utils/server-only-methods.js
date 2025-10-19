@@ -438,3 +438,44 @@ export const getMonthlyStats = async () => {
 
   return data;
 };
+
+/**
+ * MÉTHODE POUR LES STATISTIQUES PAR TYPE
+ */
+export const getTypeStats = async () => {
+  const nextCookies = await cookies();
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/type-stats`,
+      {
+        headers: {
+          Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+        timeout: 10000, // 10 secondes timeout
+      },
+    );
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching type stats:", error.message);
+
+    // Log plus détaillé pour déboguer
+    if (error.response) {
+      console.error("API Response Status:", error.response.status);
+      console.error("API Response Data:", error.response.data);
+    }
+
+    // Retourner une structure par défaut
+    return {
+      success: false,
+      analytics: [],
+      trends: [],
+      conversion: [],
+      comparison: [],
+      error: error.message,
+    };
+  }
+};
