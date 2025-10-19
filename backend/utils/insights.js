@@ -290,3 +290,78 @@ export const generateRecommendations = async () => {
 
   return recommendations;
 };
+
+// Ajouter dans generateInsights()
+
+// MEILLEUR TYPE DU MOIS
+const topType = await Order.aggregate([
+  { $match: { createdAt: { $gte: thisMonthStart }, paymentStatus: "paid" } },
+  { $unwind: "$orderItems" },
+  {
+    $group: {
+      _id: "$orderItems.type",
+      revenue: {
+        $sum: { $multiply: ["$orderItems.price", "$orderItems.quantity"] },
+      },
+    },
+  },
+  { $sort: { revenue: -1 } },
+  { $limit: 1 },
+]);
+
+if (topType.length > 0) {
+  insights.push({
+    type: "success",
+    icon: "🏆",
+    title: "Type le plus performant",
+    message: `${topType[0]._id} domine les ventes`,
+    value: `${(topType[0].revenue / 1000).toFixed(0)}k FDj ce mois`,
+  });
+}
+
+// TYPE EN DÉCLIN
+const [thisMonth, lastMonth] = await Promise.all([
+  Order.aggregate([
+    { $match: { createdAt: { $gte: thisMonthStart }, paymentStatus: "paid" } },
+    { $unwind: "$orderItems" },
+    {
+      $group: {
+        _id: "$orderItems.type",
+        revenue: { $sum: "$orderItems.subtotal" },
+      },
+    },
+  ]),
+  Order.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: lastMonthStart, $lt: thisMonthStart },
+        paymentStatus: "paid",
+      },
+    },
+    { $unwind: "$orderItems" },
+    {
+      $group: {
+        _id: "$orderItems.type",
+        revenue: { $sum: "$orderItems.subtotal" },
+      },
+    },
+  ]),
+]);
+
+// Comparer et détecter les baisses > 15%
+thisMonth.forEach((current) => {
+  const previous = lastMonth.find((m) => m._id === current._id);
+  if (previous) {
+    const decline =
+      ((current.revenue - previous.revenue) / previous.revenue) * 100;
+    if (decline < -15) {
+      insights.push({
+        type: "warning",
+        icon: "📉",
+        title: "Type en déclin",
+        message: `${current._id} en baisse de ${Math.abs(decline).toFixed(0)}%`,
+        value: "Vérifier la stratégie",
+      });
+    }
+  }
+});
