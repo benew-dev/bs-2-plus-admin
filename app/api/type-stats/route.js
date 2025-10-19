@@ -4,16 +4,18 @@ import {
   getTypeAnalytics,
   getTypeTrends,
   getTypeConversionRates,
+  getTypeMonthlyComparison, // ✅ AJOUTER
 } from "@/backend/pipelines/typePipelines";
 
 export async function GET(req) {
   try {
     await connectDB();
 
-    const [analytics, trends, conversion] = await Promise.all([
+    const [analytics, trends, conversion, comparison] = await Promise.all([
       getTypeAnalytics(),
       getTypeTrends(6),
       getTypeConversionRates(),
+      getTypeMonthlyComparison(), // ✅ AJOUTER
     ]);
 
     return NextResponse.json({
@@ -21,6 +23,7 @@ export async function GET(req) {
       analytics,
       trends,
       conversion,
+      comparison, // ✅ AJOUTER
       timestamp: new Date(),
     });
   } catch (error) {

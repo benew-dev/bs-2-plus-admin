@@ -6,6 +6,7 @@ import DailyCards from "./DailyCards";
 import SimpleLineChart from "../charts/SimpleLineChart";
 import SimpleBarChart from "../charts/SimpleBarChart";
 import InsightsPanel from "./InsightsPanel";
+import TypePerformanceWidget from "./TypePerformanceWidget"; // ✅ NOUVEAU
 
 export default function MainDashboard({ data, insights }) {
   if (!data) {
@@ -51,6 +52,9 @@ export default function MainDashboard({ data, insights }) {
 
       {/* Insights et Recommandations */}
       <InsightsPanel insights={insights} />
+
+      {/* ✅ NOUVEAU - Widget Performance par Type */}
+      <TypePerformanceWidget />
 
       {/* Graphiques */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">

@@ -4,13 +4,18 @@ import { useState, useEffect } from "react";
 
 export default function MonthlyReport() {
   const [data, setData] = useState(null);
+  const [typeData, setTypeData] = useState(null); // ✅ NOUVEAU
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/monthly-stats")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
+    // Charger les deux API en parallèle
+    Promise.all([
+      fetch("/api/monthly-stats").then((res) => res.json()),
+      fetch("/api/type-stats").then((res) => res.json()), // ✅ NOUVEAU
+    ])
+      .then(([monthlyData, typesData]) => {
+        setData(monthlyData);
+        setTypeData(typesData.success ? typesData : null); // ✅ NOUVEAU
         setLoading(false);
       })
       .catch((err) => {
@@ -185,6 +190,115 @@ export default function MonthlyReport() {
           </div>
         </div>
       </section>
+
+      {/* ✅ NOUVELLE SECTION - Performance par Type */}
+      {typeData && typeData.analytics && typeData.analytics.length > 0 && (
+        <section className="mb-6 sm:mb-8">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
+            🏷️ Performance par Type
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {typeData.analytics.map((type, index) => {
+              const totalRevenue = typeData.analytics.reduce(
+                (sum, t) => sum + t.totalRevenue,
+                0,
+              );
+              const percentage = (
+                (type.totalRevenue / totalRevenue) *
+                100
+              ).toFixed(1);
+
+              return (
+                <div
+                  key={index}
+                  className="border-2 border-gray-200 rounded-lg p-3 sm:p-4 hover:border-purple-300 transition-colors"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-sm sm:text-base font-bold text-gray-800 truncate">
+                      {type._id || "Non spécifié"}
+                    </h3>
+                    <span className="text-lg sm:text-xl flex-shrink-0 ml-2">
+                      {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
+                    </span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-600">Revenus</span>
+                      <span className="text-sm sm:text-base font-bold text-green-600">
+                        {(type.totalRevenue / 1000).toFixed(1)}k FDj
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-600">Part</span>
+                      <span className="text-sm sm:text-base font-bold text-purple-600">
+                        {percentage}%
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-600">Commandes</span>
+                      <span className="text-sm font-semibold text-gray-700">
+                        {type.totalOrders}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-600">
+                        Panier moyen
+                      </span>
+                      <span className="text-sm font-semibold text-gray-700">
+                        {Math.round(type.avgOrderValue)} FDj
+                      </span>
+                    </div>
+
+                    {/* Barre de progression */}
+                    <div className="w-full bg-gray-200 rounded-full h-2 mt-3">
+                      <div
+                        className="bg-purple-600 h-2 rounded-full"
+                        style={{ width: `${percentage}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Taux de conversion par type */}
+          {typeData.conversion && typeData.conversion.length > 0 && (
+            <div className="mt-4 bg-gray-50 rounded-lg p-3 sm:p-4">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">
+                Taux de Conversion par Type
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                {typeData.conversion.map((type, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between items-center p-2 bg-white rounded border border-gray-200"
+                  >
+                    <span className="text-xs text-gray-700 truncate mr-2">
+                      {type.type || "Non spécifié"}
+                    </span>
+                    <span
+                      className={`text-xs font-bold ${
+                        type.conversionRate >= 80
+                          ? "text-green-600"
+                          : type.conversionRate >= 60
+                            ? "text-orange-600"
+                            : "text-red-600"
+                      }`}
+                    >
+                      {type.conversionRate.toFixed(1)}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* Top produits */}
       <section className="mb-6 sm:mb-8">

@@ -11,6 +11,14 @@ export const generateInsights = async () => {
   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
+  // ✅ AJOUTER LES DATES POUR LES INSIGHTS PAR TYPE
+  const thisMonthStart = new Date();
+  thisMonthStart.setDate(1);
+  thisMonthStart.setHours(0, 0, 0, 0);
+
+  const lastMonthStart = new Date(thisMonthStart);
+  lastMonthStart.setMonth(lastMonthStart.getMonth() - 1);
+
   // 1. MEILLEUR JOUR DE LA SEMAINE
   const bestDay = await Order.aggregate([
     { $match: { createdAt: { $gte: thirtyDaysAgo }, paymentStatus: "paid" } },
@@ -174,7 +182,7 @@ export const generateInsights = async () => {
   // 7. NOUVEAUX CLIENTS
   const newCustomers = await Order.aggregate([
     { $match: { createdAt: { $gte: sevenDaysAgo } } },
-    { $group: { _id: "$user", firstOrder: { $min: "$createdAt" } } },
+    { $group: { _id: "$user.userId", firstOrder: { $min: "$createdAt" } } },
     {
       $match: {
         firstOrder: { $gte: sevenDaysAgo },
@@ -191,6 +199,97 @@ export const generateInsights = async () => {
       message: `${newCustomers[0].total} nouveaux clients cette semaine`,
       value: "Acquisition en hausse",
     });
+  }
+
+  // ✅ 8. MEILLEUR TYPE DU MOIS
+  try {
+    const topType = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: thisMonthStart },
+          paymentStatus: "paid",
+        },
+      },
+      { $unwind: "$orderItems" },
+      {
+        $group: {
+          _id: "$orderItems.type",
+          revenue: {
+            $sum: { $multiply: ["$orderItems.price", "$orderItems.quantity"] },
+          },
+        },
+      },
+      { $sort: { revenue: -1 } },
+      { $limit: 1 },
+    ]);
+
+    if (topType.length > 0) {
+      insights.push({
+        type: "success",
+        icon: "🏆",
+        title: "Type le plus performant",
+        message: `${topType[0]._id} domine les ventes`,
+        value: `${(topType[0].revenue / 1000).toFixed(0)}k FDj ce mois`,
+      });
+    }
+  } catch (error) {
+    console.error("Error generating top type insight:", error);
+  }
+
+  // ✅ 9. TYPE EN DÉCLIN
+  try {
+    const [thisMonthTypes, lastMonthTypes] = await Promise.all([
+      Order.aggregate([
+        {
+          $match: {
+            createdAt: { $gte: thisMonthStart },
+            paymentStatus: "paid",
+          },
+        },
+        { $unwind: "$orderItems" },
+        {
+          $group: {
+            _id: "$orderItems.type",
+            revenue: { $sum: "$orderItems.subtotal" },
+          },
+        },
+      ]),
+      Order.aggregate([
+        {
+          $match: {
+            createdAt: { $gte: lastMonthStart, $lt: thisMonthStart },
+            paymentStatus: "paid",
+          },
+        },
+        { $unwind: "$orderItems" },
+        {
+          $group: {
+            _id: "$orderItems.type",
+            revenue: { $sum: "$orderItems.subtotal" },
+          },
+        },
+      ]),
+    ]);
+
+    // Comparer et détecter les baisses > 15%
+    thisMonthTypes.forEach((current) => {
+      const previous = lastMonthTypes.find((m) => m._id === current._id);
+      if (previous && previous.revenue > 0) {
+        const decline =
+          ((current.revenue - previous.revenue) / previous.revenue) * 100;
+        if (decline < -15) {
+          insights.push({
+            type: "warning",
+            icon: "📉",
+            title: "Type en déclin",
+            message: `${current._id} en baisse de ${Math.abs(decline).toFixed(0)}%`,
+            value: "Vérifier la stratégie",
+          });
+        }
+      }
+    });
+  } catch (error) {
+    console.error("Error generating declining type insight:", error);
   }
 
   return insights;
@@ -237,7 +336,7 @@ export const generateRecommendations = async () => {
   const recentSales = await Order.aggregate([
     { $match: { createdAt: { $gte: thirtyDaysAgo } } },
     { $unwind: "$orderItems" },
-    { $group: { _id: "$orderItems.productId" } },
+    { $group: { _id: "$orderItems.product" } },
   ]);
 
   const soldProductIds = recentSales.map((item) => item._id);
@@ -260,12 +359,13 @@ export const generateRecommendations = async () => {
     {
       $match: {
         createdAt: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
+        paymentStatus: "paid",
       },
     },
     { $unwind: "$orderItems" },
     {
       $group: {
-        _id: "$orderItems.productId",
+        _id: "$orderItems.product",
         sales: { $sum: "$orderItems.quantity" },
       },
     },
@@ -290,78 +390,3 @@ export const generateRecommendations = async () => {
 
   return recommendations;
 };
-
-// Ajouter dans generateInsights()
-
-// MEILLEUR TYPE DU MOIS
-const topType = await Order.aggregate([
-  { $match: { createdAt: { $gte: thisMonthStart }, paymentStatus: "paid" } },
-  { $unwind: "$orderItems" },
-  {
-    $group: {
-      _id: "$orderItems.type",
-      revenue: {
-        $sum: { $multiply: ["$orderItems.price", "$orderItems.quantity"] },
-      },
-    },
-  },
-  { $sort: { revenue: -1 } },
-  { $limit: 1 },
-]);
-
-if (topType.length > 0) {
-  insights.push({
-    type: "success",
-    icon: "🏆",
-    title: "Type le plus performant",
-    message: `${topType[0]._id} domine les ventes`,
-    value: `${(topType[0].revenue / 1000).toFixed(0)}k FDj ce mois`,
-  });
-}
-
-// TYPE EN DÉCLIN
-const [thisMonth, lastMonth] = await Promise.all([
-  Order.aggregate([
-    { $match: { createdAt: { $gte: thisMonthStart }, paymentStatus: "paid" } },
-    { $unwind: "$orderItems" },
-    {
-      $group: {
-        _id: "$orderItems.type",
-        revenue: { $sum: "$orderItems.subtotal" },
-      },
-    },
-  ]),
-  Order.aggregate([
-    {
-      $match: {
-        createdAt: { $gte: lastMonthStart, $lt: thisMonthStart },
-        paymentStatus: "paid",
-      },
-    },
-    { $unwind: "$orderItems" },
-    {
-      $group: {
-        _id: "$orderItems.type",
-        revenue: { $sum: "$orderItems.subtotal" },
-      },
-    },
-  ]),
-]);
-
-// Comparer et détecter les baisses > 15%
-thisMonth.forEach((current) => {
-  const previous = lastMonth.find((m) => m._id === current._id);
-  if (previous) {
-    const decline =
-      ((current.revenue - previous.revenue) / previous.revenue) * 100;
-    if (decline < -15) {
-      insights.push({
-        type: "warning",
-        icon: "📉",
-        title: "Type en déclin",
-        message: `${current._id} en baisse de ${Math.abs(decline).toFixed(0)}%`,
-        value: "Vérifier la stratégie",
-      });
-    }
-  }
-});

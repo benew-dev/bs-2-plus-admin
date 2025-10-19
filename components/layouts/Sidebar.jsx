@@ -15,7 +15,7 @@ const Sidebar = memo(() => {
   const [openUsers, setOpenUsers] = useState(false);
   const [openAnalytics, setOpenAnalytics] = useState(false);
   const [openReports, setOpenReports] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // ← NOUVEAU
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isSettings = () => {
     let isTrue;
@@ -185,6 +185,23 @@ const Sidebar = memo(() => {
                     aria-hidden="true"
                   ></i>
                   <span>Monthly</span>
+                </Link>
+              </li>
+              {/* ✅ NOUVEAU LIEN - Par Type */}
+              <li>
+                <Link
+                  onClick={() => {
+                    setActivePart("analytics");
+                    closeMobileMenu();
+                  }}
+                  href="/admin/analytics/types"
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${pathName === "/admin/analytics/types" && "bg-blue-50 text-blue-600 font-medium"}`}
+                >
+                  <i
+                    className="fa fa-tags w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
+                  <span>Par Type</span>
                 </Link>
               </li>
             </ul>
