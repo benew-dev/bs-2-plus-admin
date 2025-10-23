@@ -2,6 +2,7 @@
 
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { HandCoins } from "lucide-react";
 import SettingsContext from "@/context/SettingsContext";
 
 const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
@@ -34,10 +35,17 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
 
   // Modal state for payment
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentType, setPaymentType] = useState("electronic"); // "electronic" ou "cash"
   const [newPayment, setNewPayment] = useState({
+    platform: "",
     name: "",
     number: "",
   });
+
+  // ✅ NOUVEAU : Vérifier si CASH existe déjà
+  const hasCashPayment = dataPayment?.paymentTypes?.some(
+    (payment) => payment.platform === "CASH" || payment.isCashPayment === true,
+  );
 
   useEffect(() => {
     setTypes(dataTypes);
@@ -144,7 +152,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
     }
   };
 
-  // PAYMENT HANDLERS
+  // ✅ AMÉLIORÉ : PAYMENT HANDLERS avec support CASH
   const deletePaymentHandler = async (id) => {
     if (isLoading("deletingPayments", id)) return;
     try {
@@ -157,17 +165,43 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
 
   const submitPaymentHandler = async (e) => {
     e.preventDefault();
-    if (!newPayment.name.trim() || !newPayment.number.trim()) {
-      toast.error("Veuillez remplir tous les champs");
-      return;
+
+    if (paymentType === "cash") {
+      // Ajouter l'option CASH
+      try {
+        await newPaymentType("CASH", null); // Le contexte gérera les valeurs par défaut
+        setShowPaymentModal(false);
+        resetPaymentForm();
+      } catch (error) {
+        // Error handled in context
+      }
+    } else {
+      // Ajouter une plateforme électronique
+      if (
+        !newPayment.platform ||
+        !newPayment.name.trim() ||
+        !newPayment.number.trim()
+      ) {
+        toast.error("Veuillez remplir tous les champs");
+        return;
+      }
+      try {
+        await newPaymentType(
+          newPayment.platform,
+          newPayment.name,
+          newPayment.number,
+        );
+        setShowPaymentModal(false);
+        resetPaymentForm();
+      } catch (error) {
+        // Error handled in context
+      }
     }
-    try {
-      await newPaymentType(newPayment.name, newPayment.number);
-      setShowPaymentModal(false);
-      setNewPayment({ name: "", number: "" });
-    } catch (error) {
-      // Error handled in context
-    }
+  };
+
+  const resetPaymentForm = () => {
+    setPaymentType("electronic");
+    setNewPayment({ platform: "", name: "", number: "" });
   };
 
   // Get categories by type
@@ -300,7 +334,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
             )}
           </div>
 
-          {/* Types Grid */}
+          {/* Types Grid - Code inchangé */}
           {dataTypes.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {dataTypes.map((type) => {
@@ -579,7 +613,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
           )}
         </div>
 
-        {/* Payment Types Section */}
+        {/* ✅ AMÉLIORÉ : Payment Types Section avec bouton CASH */}
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-6 lg:p-8">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
             <div className="flex items-center gap-3">
@@ -612,35 +646,62 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                 </p>
               </div>
             </div>
-            <button
-              onClick={() => setShowPaymentModal(true)}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl font-semibold"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+
+            <div className="flex gap-2 flex-wrap">
+              {/* ✅ NOUVEAU : Bouton CASH séparé */}
+              {!hasCashPayment && (
+                <button
+                  onClick={() => {
+                    setPaymentType("cash");
+                    setShowPaymentModal(true);
+                  }}
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg hover:shadow-xl font-semibold"
+                >
+                  <HandCoins className="w-5 h-5" />
+                  Espèces
+                </button>
+              )}
+
+              <button
+                onClick={() => {
+                  setPaymentType("electronic");
+                  setShowPaymentModal(true);
+                }}
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl font-semibold"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-              Ajouter
-            </button>
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                  />
+                </svg>
+                Électronique
+              </button>
+            </div>
           </div>
 
           {dataPayment?.paymentTypes && dataPayment.paymentTypes.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {dataPayment.paymentTypes.map((payment) => {
                 const isDeleting = isLoading("deletingPayments", payment._id);
+                const isCash =
+                  payment.platform === "CASH" || payment.isCashPayment;
+
                 return (
                   <div
                     key={payment._id}
-                    className={`relative group bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all ${
+                    className={`relative group ${
+                      isCash
+                        ? "bg-gradient-to-br from-emerald-500 to-green-600"
+                        : "bg-gradient-to-br from-emerald-500 to-green-600"
+                    } rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all ${
                       isDeleting ? "opacity-50 scale-95" : "hover:scale-105"
                     }`}
                   >
@@ -682,25 +743,36 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
 
                     <div className="text-white">
                       <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
-                        <svg
-                          className="w-6 h-6"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-                          <path
-                            fillRule="evenodd"
-                            d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                        {isCash ? (
+                          <HandCoins className="w-6 h-6" />
+                        ) : (
+                          <svg
+                            className="w-6 h-6"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                            <path
+                              fillRule="evenodd"
+                              d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
                       </div>
                       <h3 className="text-lg font-bold mb-2 break-words">
-                        {payment.paymentName}
+                        {isCash
+                          ? "Espèces"
+                          : payment.paymentName || payment.platform}
                       </h3>
                       <p className="text-white/90 font-mono text-sm break-words">
-                        {payment.paymentNumber}
+                        {isCash ? "À la livraison" : payment.paymentNumber}
                       </p>
+                      {isCash && payment.description && (
+                        <p className="text-white/70 text-xs mt-2 italic">
+                          {payment.description}
+                        </p>
+                      )}
                     </div>
                   </div>
                 );
@@ -732,36 +804,48 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
         </div>
       </div>
 
-      {/* Payment Modal */}
+      {/* ✅ AMÉLIORÉ : Payment Modal avec support CASH */}
       {showPaymentModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl animate-in fade-in zoom-in duration-200">
-            <div className="bg-gradient-to-r from-green-500 to-emerald-500 p-6 rounded-t-2xl">
+            <div
+              className={`${
+                paymentType === "cash"
+                  ? "bg-gradient-to-r from-emerald-500 to-green-500"
+                  : "bg-gradient-to-r from-green-500 to-emerald-500"
+              } p-6 rounded-t-2xl`}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                      />
-                    </svg>
+                    {paymentType === "cash" ? (
+                      <HandCoins className="w-6 h-6 text-white" />
+                    ) : (
+                      <svg
+                        className="w-6 h-6 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                        />
+                      </svg>
+                    )}
                   </div>
                   <h3 className="text-xl font-bold text-white">
-                    Nouveau Moyen de Paiement
+                    {paymentType === "cash"
+                      ? "Paiement en Espèces"
+                      : "Paiement Électronique"}
                   </h3>
                 </div>
                 <button
                   onClick={() => {
                     setShowPaymentModal(false);
-                    setNewPayment({ name: "", number: "" });
+                    resetPaymentForm();
                   }}
                   className="p-2 hover:bg-white/10 rounded-lg transition-all"
                 >
@@ -783,100 +867,170 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
             </div>
 
             <form onSubmit={submitPaymentHandler} className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
-                  Nom de la plateforme <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg
-                      className="w-5 h-5 text-slate-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
+              {paymentType === "cash" ? (
+                // ✅ Formulaire CASH simplifié
+                <>
+                  <div className="bg-emerald-50 border-l-4 border-emerald-500 rounded-lg p-4">
+                    <div className="flex gap-3">
+                      <HandCoins className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-semibold text-emerald-900 mb-1">
+                          Option de paiement en espèces
+                        </p>
+                        <p className="text-sm text-emerald-700">
+                          Les clients pourront payer en espèces lors de la
+                          récupération de leur commande. Aucune information
+                          supplémentaire n'est requise.
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    value={newPayment.name}
-                    onChange={(e) =>
-                      setNewPayment({ ...newPayment, name: e.target.value })
-                    }
-                    placeholder="Ex: WAAFI, D-MONEY..."
-                    required
-                    minLength={3}
-                    className="w-full pl-10 pr-4 py-3 text-sm border-2 border-slate-200 rounded-lg focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all outline-none"
-                  />
-                </div>
-              </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
-                  Numéro de compte <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg
-                      className="w-5 h-5 text-slate-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
+                  <div className="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4">
+                    <div className="flex gap-3">
+                      <svg
+                        className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <p className="text-sm text-yellow-700">
+                        Vous ne pouvez ajouter qu'une seule option de paiement
+                        en espèces
+                      </p>
+                    </div>
                   </div>
-                  <input
-                    type="tel"
-                    value={newPayment.number}
-                    onChange={(e) =>
-                      setNewPayment({ ...newPayment, number: e.target.value })
-                    }
-                    placeholder="Ex: 77 12 34 56"
-                    required
-                    minLength={6}
-                    className="w-full pl-10 pr-4 py-3 text-sm border-2 border-slate-200 rounded-lg focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all outline-none"
-                  />
-                </div>
-              </div>
+                </>
+              ) : (
+                // Formulaire électronique
+                <>
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      Plateforme <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      value={newPayment.platform}
+                      onChange={(e) =>
+                        setNewPayment({
+                          ...newPayment,
+                          platform: e.target.value,
+                        })
+                      }
+                      required
+                      className="w-full px-4 py-3 text-sm border-2 border-slate-200 rounded-lg focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all outline-none"
+                    >
+                      <option value="">Sélectionner une plateforme...</option>
+                      <option value="WAAFI">WAAFI</option>
+                      <option value="D-MONEY">D-MONEY</option>
+                      <option value="CAC-PAY">CAC-PAY</option>
+                      <option value="BCI-PAY">BCI-PAY</option>
+                    </select>
+                  </div>
 
-              <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-4">
-                <div className="flex gap-3">
-                  <svg
-                    className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <p className="text-sm text-green-700">
-                    Ce numéro sera utilisé pour recevoir les paiements des
-                    clients
-                  </p>
-                </div>
-              </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      Nom du titulaire <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg
+                          className="w-5 h-5 text-slate-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="text"
+                        value={newPayment.name}
+                        onChange={(e) =>
+                          setNewPayment({ ...newPayment, name: e.target.value })
+                        }
+                        placeholder="Ex: Ahmed Mohamed"
+                        required
+                        minLength={3}
+                        className="w-full pl-10 pr-4 py-3 text-sm border-2 border-slate-200 rounded-lg focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      Numéro de compte <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg
+                          className="w-5 h-5 text-slate-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="tel"
+                        value={newPayment.number}
+                        onChange={(e) =>
+                          setNewPayment({
+                            ...newPayment,
+                            number: e.target.value,
+                          })
+                        }
+                        placeholder="Ex: 77 12 34 56"
+                        required
+                        minLength={6}
+                        className="w-full pl-10 pr-4 py-3 text-sm border-2 border-slate-200 rounded-lg focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-4">
+                    <div className="flex gap-3">
+                      <svg
+                        className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <p className="text-sm text-green-700">
+                        Ce compte sera utilisé pour recevoir les paiements des
+                        clients
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
 
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
                   onClick={() => {
                     setShowPaymentModal(false);
-                    setNewPayment({ name: "", number: "" });
+                    resetPaymentForm();
                   }}
                   className="flex-1 px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition-all"
                 >
@@ -884,22 +1038,35 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                  className={`flex-1 ${
+                    paymentType === "cash"
+                      ? "bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700"
+                      : "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+                  } text-white py-3 px-6 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2`}
                 >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Ajouter
+                  {paymentType === "cash" ? (
+                    <>
+                      <HandCoins className="w-5 h-5" />
+                      Activer
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      Ajouter
+                    </>
+                  )}
                 </button>
               </div>
             </form>

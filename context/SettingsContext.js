@@ -198,28 +198,59 @@ export const SettingsProvider = ({ children }) => {
     }
   };
 
-  // ========== PAYMENT TYPE METHODS ==========
-  const newPaymentType = async (platformName, platformNumber) => {
+  // ✅ AMÉLIORÉ : PAYMENT TYPE METHODS avec support CASH
+  const newPaymentType = async (
+    platformNameOrType,
+    platformNumber,
+    platformAccount,
+  ) => {
     try {
       setLoading(true);
 
+      // ✅ NOUVEAU : Détecter si c'est un paiement CASH
+      const isCashPayment = platformNameOrType === "CASH";
+
+      let requestData;
+
+      if (isCashPayment) {
+        // Pour CASH, envoyer seulement le flag
+        requestData = {
+          platform: "CASH",
+          isCashPayment: true,
+        };
+      } else {
+        // Pour paiements électroniques, envoyer les 3 paramètres
+        requestData = {
+          platform: platformNameOrType, // La plateforme (WAAFI, D-MONEY, etc.)
+          paymentName: platformNumber, // Le nom du titulaire
+          paymentNumber: platformAccount, // Le numéro de compte
+          isCashPayment: false,
+        };
+      }
+
       const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/settings/paymentType`,
-        { paymentName: platformName, paymentNumber: platformNumber },
+        requestData,
       );
 
       if (data) {
         router.refresh();
-        toast.success("Moyen de paiement ajouté avec succès");
+        toast.success(
+          isCashPayment
+            ? "Option de paiement en espèces activée avec succès"
+            : "Moyen de paiement ajouté avec succès",
+        );
         setLoading(false);
         return { success: true, data };
       }
     } catch (error) {
-      setError(error?.response?.data?.message);
-      toast.error(
+      const errorMessage =
+        error?.response?.data?.error ||
         error?.response?.data?.message ||
-          "Échec de l'ajout du moyen de paiement",
-      );
+        "Échec de l'ajout du moyen de paiement";
+
+      setError(errorMessage);
+      toast.error(errorMessage);
       setLoading(false);
       throw error;
     }
