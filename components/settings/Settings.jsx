@@ -2,7 +2,6 @@
 
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { HandCoins } from "lucide-react";
 import SettingsContext from "@/context/SettingsContext";
 
 const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
@@ -648,7 +647,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
             </div>
 
             <div className="flex gap-2 flex-wrap">
-              {/* ✅ NOUVEAU : Bouton CASH séparé */}
+              {/* ✅ NOUVEAU : Bouton CASH séparé - SVG pour l'icône coins/espèces */}
               {!hasCashPayment && (
                 <button
                   onClick={() => {
@@ -657,7 +656,20 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                   }}
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg hover:shadow-xl font-semibold"
                 >
-                  <HandCoins className="w-5 h-5" />
+                  {/* SVG Icon pour espèces/coins */}
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
                   Espèces
                 </button>
               )}
@@ -744,7 +756,20 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                     <div className="text-white">
                       <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
                         {isCash ? (
-                          <HandCoins className="w-6 h-6" />
+                          // SVG Icon pour espèces dans la carte
+                          <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
                         ) : (
                           <svg
                             className="w-6 h-6"
@@ -819,7 +844,20 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                     {paymentType === "cash" ? (
-                      <HandCoins className="w-6 h-6 text-white" />
+                      // SVG Icon pour espèces dans le modal
+                      <svg
+                        className="w-6 h-6 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
                     ) : (
                       <svg
                         className="w-6 h-6 text-white"
@@ -872,7 +910,20 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                 <>
                   <div className="bg-emerald-50 border-l-4 border-emerald-500 rounded-lg p-4">
                     <div className="flex gap-3">
-                      <HandCoins className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      {/* SVG Icon pour info dans le formulaire */}
+                      <svg
+                        className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
                       <div>
                         <p className="text-sm font-semibold text-emerald-900 mb-1">
                           Option de paiement en espèces
@@ -1046,7 +1097,20 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                 >
                   {paymentType === "cash" ? (
                     <>
-                      <HandCoins className="w-5 h-5" />
+                      {/* SVG Icon pour espèces dans le bouton */}
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
                       Activer
                     </>
                   ) : (
