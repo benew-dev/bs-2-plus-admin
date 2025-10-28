@@ -43,16 +43,16 @@ export default function AlertsPanel({ alerts }) {
         >
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-sm sm:text-base text-gray-800 wrap-break-word">
+              <p className="font-bold text-sm sm:text-base text-gray-800 wrap-break-words">
                 {alert.title}
               </p>
-              <p className="text-xs sm:text-sm text-gray-700 mt-1 wrap-break-word">
+              <p className="text-xs sm:text-sm text-gray-700 mt-1 wrap-break-words">
                 {alert.message}
               </p>
               {alert.details && (
                 <ul className="text-xs text-gray-600 mt-2 space-y-1">
                   {alert.details.slice(0, 3).map((detail, i) => (
-                    <li key={i} className="wrap-break-word">
+                    <li key={i} className="wrap-break-words">
                       • {detail}
                     </li>
                   ))}

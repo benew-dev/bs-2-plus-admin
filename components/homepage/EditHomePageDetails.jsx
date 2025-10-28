@@ -9,7 +9,7 @@ import HomePageContext from "@/context/HomePageContext";
 
 const EditHomePageDetails = ({ data }) => {
   const router = useRouter();
-  const { updateHomePage, loading, error, clearErrors } =
+  const { updateHomePageSection, loading, error, clearErrors } =
     useContext(HomePageContext);
 
   const [uploadConfig, setUploadConfig] = useState(null);
@@ -95,7 +95,7 @@ const EditHomePageDetails = ({ data }) => {
       return;
     }
 
-    await updateHomePage(homePageData);
+    await updateHomePageSection(homePageData);
   };
 
   const getWidgetOptions = () => {

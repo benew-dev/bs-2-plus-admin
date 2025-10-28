@@ -57,7 +57,7 @@ export default function SimpleLineChart({
             dataKey="value"
             stroke={color}
             strokeWidth={2}
-            className="sm:stroke-[3]"
+            className="sm:stroke-3"
             dot={{ fill: color, r: 3 }}
             activeDot={{ r: 5 }}
           />

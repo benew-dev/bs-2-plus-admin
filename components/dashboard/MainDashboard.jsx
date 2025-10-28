@@ -103,7 +103,7 @@ export default function MainDashboard({ data, insights }) {
 
           <div className="p-3 sm:p-4 bg-green-50 rounded-lg">
             <p className="text-xs sm:text-sm text-gray-500">Revenus</p>
-            <p className="text-2xl sm:text-3xl font-bold text-green-600 my-1 sm:my-2 wrap-break-words">
+            <p className="text-2xl sm:text-3xl font-bold text-green-600 my-1 sm:my-2 wrap-break-word">
               {data.weekly.thisWeek.revenue.toLocaleString()} FDj
             </p>
             <p
