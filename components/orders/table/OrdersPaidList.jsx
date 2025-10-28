@@ -19,7 +19,7 @@ const OrdersPaidList = ({ listOrdersPaidThisMonth }) => {
   return arrayHasData(listOrdersPaidThisMonth) ? (
     <div className="w-full py-12 sm:py-16 px-3 sm:px-6">
       <div className="max-w-md mx-auto text-center">
-        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center">
+        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-linear-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center">
           <svg
             className="w-10 h-10 sm:w-12 sm:h-12 text-green-500"
             fill="currentColor"

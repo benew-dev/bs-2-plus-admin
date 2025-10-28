@@ -437,7 +437,7 @@ const NewProduct = ({ initialTypes = [], initialCategories = [] }) => {
             <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-3 sm:p-4">
               <div className="flex gap-2 sm:gap-3">
                 <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0 mt-0.5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -468,7 +468,7 @@ const NewProduct = ({ initialTypes = [], initialCategories = [] }) => {
               <button
                 type="submit"
                 disabled={!hasActiveTypes || !hasCategories}
-                className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="flex-1 bg-linear-to-r from-indigo-600 to-purple-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5"

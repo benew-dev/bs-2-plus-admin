@@ -58,7 +58,7 @@ const OrdersUnpaidList = ({ listOrdersUnpaidThisMonth }) => {
   return arrayHasData(listOrdersUnpaidThisMonth) ? (
     <div className="w-full py-12 sm:py-16 px-3 sm:px-6">
       <div className="max-w-md mx-auto text-center">
-        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
+        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-linear-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
           <svg
             className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400"
             fill="currentColor"
@@ -238,7 +238,7 @@ const OrdersUnpaidList = ({ listOrdersUnpaidThisMonth }) => {
                 </div>
                 <Link
                   href={`/admin/orders/${item?._id}`}
-                  className="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors text-sm font-medium flex-shrink-0 ml-2"
+                  className="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors text-sm font-medium shrink-0 ml-2"
                 >
                   <i
                     className="fa fa-exclamation-triangle mr-1"

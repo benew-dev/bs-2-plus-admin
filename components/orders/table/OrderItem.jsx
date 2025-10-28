@@ -81,7 +81,7 @@ const OrderItem = ({ order }) => {
         <div className="flex gap-2 justify-center">
           <Link
             href={`/admin/orders/${order?._id}`}
-            className="group relative px-3 py-2 inline-flex items-center justify-center text-white bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 shadow-sm hover:shadow-md"
+            className="group relative px-3 py-2 inline-flex items-center justify-center text-white bg-linear-to-r from-yellow-400 to-yellow-500 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 shadow-sm hover:shadow-md"
             aria-label={`Edit order ${order?.orderNumber || order?._id}`}
             title="Modifier la commande"
           >

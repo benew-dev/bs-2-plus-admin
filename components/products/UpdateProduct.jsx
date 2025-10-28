@@ -143,7 +143,7 @@ const UpdateProduct = memo(
           )}
 
           <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-4 sm:p-6">
+            <div className="bg-linear-to-r from-blue-500 to-indigo-500 p-4 sm:p-6">
               <div className="flex items-center gap-3 sm:gap-4">
                 <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
                   <svg

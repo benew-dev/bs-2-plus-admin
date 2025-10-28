@@ -20,7 +20,7 @@ const UsersTable = ({ users, deleteHandler }) => {
   return arrayHasData(users) ? (
     <div className="w-full py-12 sm:py-16 px-3 sm:px-6">
       <div className="max-w-md mx-auto text-center">
-        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-gradient-to-br from-teal-100 to-teal-200 rounded-full flex items-center justify-center">
+        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-linear-to-br from-teal-100 to-teal-200 rounded-full flex items-center justify-center">
           <svg
             className="w-10 h-10 sm:w-12 sm:h-12 text-teal-500"
             fill="none"
@@ -46,7 +46,7 @@ const UsersTable = ({ users, deleteHandler }) => {
   ) : (
     <div>
       {/* Header du tableau avec compteur - RESPONSIVE */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 px-3 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 px-3 sm:px-6 py-3 sm:py-4 bg-linear-to-r from-gray-50 to-gray-100 border-b border-gray-200">
         <h2 className="text-base sm:text-lg font-bold text-gray-800 flex items-center gap-2">
           <i className="fa fa-users text-teal-600 text-sm sm:text-base"></i>
           <span className="hidden sm:inline">Liste des Utilisateurs</span>
@@ -65,7 +65,7 @@ const UsersTable = ({ users, deleteHandler }) => {
       {/* Vue Desktop - Tableau */}
       <div className="hidden lg:block overflow-x-auto">
         <table className="w-full text-sm text-left">
-          <thead className="text-xs font-semibold uppercase bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 border-b-2 border-gray-300">
+          <thead className="text-xs font-semibold uppercase bg-linear-to-r from-gray-100 to-gray-200 text-gray-700 border-b-2 border-gray-300">
             <tr>
               <th scope="col" className="px-6 py-4">
                 <div className="flex items-center gap-2">
@@ -107,7 +107,7 @@ const UsersTable = ({ users, deleteHandler }) => {
               >
                 <td className="px-6 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-200 flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-200 shrink-0">
                       <Image
                         src={
                           user?.avatar?.url
@@ -183,7 +183,7 @@ const UsersTable = ({ users, deleteHandler }) => {
           >
             {/* Header avec avatar et nom */}
             <div className="flex items-start gap-3 mb-3">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-gray-200 flex-shrink-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-gray-200 shrink-0">
                 <Image
                   src={
                     user?.avatar?.url ? user.avatar.url : "/images/default.png"

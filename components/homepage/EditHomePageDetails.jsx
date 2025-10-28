@@ -158,9 +158,9 @@ const EditHomePageDetails = ({ data, sectionId }) => {
       </div>
 
       <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-500 p-4 sm:p-6">
+        <div className="bg-linear-to-r from-indigo-500 to-purple-500 p-4 sm:p-6">
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
               <svg
                 className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                 fill="none"
@@ -293,7 +293,7 @@ const EditHomePageDetails = ({ data, sectionId }) => {
           </div>
 
           {/* Section Upload Image */}
-          <div className="bg-gradient-to-br from-slate-50 to-indigo-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border-2 border-dashed border-indigo-300">
+          <div className="bg-linear-to-br from-slate-50 to-indigo-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border-2 border-dashed border-indigo-300">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4">
               <div>
                 <h3 className="text-base sm:text-lg font-semibold text-slate-800">
@@ -404,7 +404,7 @@ const EditHomePageDetails = ({ data, sectionId }) => {
           <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-3 sm:p-4">
             <div className="flex gap-2 sm:gap-3">
               <svg
-                className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0 mt-0.5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -431,7 +431,7 @@ const EditHomePageDetails = ({ data, sectionId }) => {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
+              className="flex-1 bg-linear-to-r from-indigo-600 to-purple-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
             >
               {loading ? (
                 <>

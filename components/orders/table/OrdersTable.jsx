@@ -32,7 +32,7 @@ const OrdersTable = ({ orders, itemCount }) => {
   return (
     <div>
       {/* Header du tableau avec compteur amélioré - RESPONSIVE */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 px-3 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 px-3 sm:px-6 py-3 sm:py-4 bg-linear-to-r from-gray-50 to-gray-100 border-b border-gray-200">
         <h2 className="text-base sm:text-lg font-bold text-gray-800 flex items-center gap-2">
           <i className="fa fa-shopping-cart text-blue-600 text-sm sm:text-base"></i>
           <span className="hidden sm:inline">Dernières Commandes</span>
@@ -52,7 +52,7 @@ const OrdersTable = ({ orders, itemCount }) => {
       {itemCount === 0 && (
         <div className="w-full py-12 sm:py-16 px-3 sm:px-6">
           <div className="max-w-md mx-auto text-center">
-            <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
+            <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-linear-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
               <svg
                 className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500"
                 fill="none"
@@ -83,7 +83,7 @@ const OrdersTable = ({ orders, itemCount }) => {
         <>
           <div className="hidden lg:block overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs font-semibold uppercase bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 border-b-2 border-gray-300">
+              <thead className="text-xs font-semibold uppercase bg-linear-to-r from-gray-100 to-gray-200 text-gray-700 border-b-2 border-gray-300">
                 <tr>
                   <th scope="col" className="px-4 py-4">
                     <div className="flex items-center gap-2">
@@ -168,7 +168,7 @@ const OrdersTable = ({ orders, itemCount }) => {
                       <div className="flex gap-2 justify-center">
                         <Link
                           href={`/admin/orders/${order?._id}`}
-                          className="group relative px-3 py-2 inline-flex items-center justify-center text-white bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 shadow-sm hover:shadow-md"
+                          className="group relative px-3 py-2 inline-flex items-center justify-center text-white bg-linear-to-r from-yellow-400 to-yellow-500 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 shadow-sm hover:shadow-md"
                           title="Modifier la commande"
                         >
                           <i className="fa fa-pencil" aria-hidden="true"></i>
@@ -200,7 +200,7 @@ const OrdersTable = ({ orders, itemCount }) => {
                   </div>
                   <Link
                     href={`/admin/orders/${order?._id}`}
-                    className="px-3 py-1.5 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition-colors text-sm font-medium flex-shrink-0 ml-2"
+                    className="px-3 py-1.5 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition-colors text-sm font-medium shrink-0 ml-2"
                   >
                     <i className="fa fa-pencil mr-1" aria-hidden="true"></i>
                     <span className="hidden sm:inline">Modifier</span>

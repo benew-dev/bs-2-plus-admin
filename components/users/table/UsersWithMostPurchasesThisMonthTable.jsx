@@ -12,7 +12,7 @@ const UsersWithMostPurchasesThisMonthTable = ({
   return arrayHasData(usersThatBoughtMostThisMonth) ? (
     <div className="w-full py-12 sm:py-16 px-3 sm:px-6">
       <div className="max-w-md mx-auto text-center">
-        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-full flex items-center justify-center">
+        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-linear-to-br from-emerald-100 to-emerald-200 rounded-full flex items-center justify-center">
           <svg
             className="w-10 h-10 sm:w-12 sm:h-12 text-emerald-500"
             fill="none"
@@ -40,7 +40,7 @@ const UsersWithMostPurchasesThisMonthTable = ({
       {/* Vue Desktop - Tableau */}
       <div className="hidden lg:block overflow-x-auto">
         <table className="w-full text-sm text-left">
-          <thead className="text-xs font-semibold uppercase bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 border-b-2 border-gray-300">
+          <thead className="text-xs font-semibold uppercase bg-linear-to-r from-gray-100 to-gray-200 text-gray-700 border-b-2 border-gray-300">
             <tr>
               <th scope="col" className="px-6 py-4">
                 <div className="flex items-center gap-2">
@@ -98,7 +98,7 @@ const UsersWithMostPurchasesThisMonthTable = ({
                   <td className="px-6 py-3">
                     <div className="flex items-center gap-3">
                       {getRankIcon(index)}
-                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-200 flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-200 shrink-0">
                         <Image
                           src={
                             user?.result?.[0]?.avatar?.url
@@ -198,8 +198,8 @@ const UsersWithMostPurchasesThisMonthTable = ({
             >
               {/* Header avec avatar et rang */}
               <div className="flex items-start gap-3 mb-3">
-                <div className="flex-shrink-0">{getRankBadge(index)}</div>
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-gray-200 flex-shrink-0">
+                <div className="shrink-0">{getRankBadge(index)}</div>
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-gray-200 shrink-0">
                   <Image
                     src={
                       user?.result?.[0]?.avatar?.url
