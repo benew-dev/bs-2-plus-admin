@@ -35,7 +35,7 @@ export async function GET(req) {
   }
 }
 
-// POST - Créer une page d'accueil (uniquement si aucune n'existe)
+// POST - Ajouter une nouvelle section à la page d'accueil
 export async function POST(req) {
   try {
     // Vérifier l'authentification
@@ -46,24 +46,10 @@ export async function POST(req) {
 
     await connectDB();
 
-    // Vérifier si une page d'accueil existe déjà
-    const existingHomePage = await HomePage.findOne();
-
-    if (existingHomePage) {
-      return NextResponse.json(
-        {
-          success: false,
-          message:
-            "Une page d'accueil existe déjà. Veuillez la modifier au lieu d'en créer une nouvelle.",
-        },
-        { status: 400 },
-      );
-    }
-
     const body = await req.json();
     const { title, subtitle, text, image } = body;
 
-    // Validation
+    // Validation des champs
     if (!title || !subtitle || !text || !image) {
       return NextResponse.json(
         {
@@ -74,17 +60,64 @@ export async function POST(req) {
       );
     }
 
-    // Créer la page d'accueil
-    const homePage = await HomePage.create({
+    if (!image.public_id || !image.url) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "L'image est invalide",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Récupérer la page d'accueil existante
+    let homePage = await HomePage.findOne();
+
+    if (!homePage) {
+      // Créer une nouvelle page d'accueil avec la première section
+      homePage = await HomePage.create({
+        sections: [
+          {
+            title,
+            subtitle,
+            text,
+            image,
+          },
+        ],
+      });
+
+      return NextResponse.json({
+        success: true,
+        message: "Page d'accueil créée avec la première section",
+        data: homePage,
+      });
+    }
+
+    // Vérifier si on a déjà 3 sections
+    if (homePage.sections.length >= 3) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "La page d'accueil a déjà 3 sections. Veuillez en modifier ou supprimer une.",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Ajouter la nouvelle section
+    homePage.sections.push({
       title,
       subtitle,
       text,
       image,
     });
 
+    await homePage.save();
+
     return NextResponse.json({
       success: true,
-      message: "Page d'accueil créée avec succès",
+      message: `Section ${homePage.sections.length} ajoutée avec succès`,
       data: homePage,
     });
   } catch (error) {
@@ -99,7 +132,7 @@ export async function POST(req) {
   }
 }
 
-// PUT - Mettre à jour la page d'accueil
+// PUT - Mettre à jour la page d'accueil (on garde pour plus tard)
 export async function PUT(req) {
   try {
     // Vérifier l'authentification
@@ -111,26 +144,52 @@ export async function PUT(req) {
     await connectDB();
 
     const body = await req.json();
-    const { title, subtitle, text, image } = body;
+    const { sections } = body;
 
     // Validation
-    if (!title || !subtitle || !text || !image) {
+    if (!sections || !Array.isArray(sections)) {
       return NextResponse.json(
         {
           success: false,
-          message: "Tous les champs sont requis",
+          message: "Les sections sont requises et doivent être un tableau",
         },
         { status: 400 },
       );
     }
 
+    if (sections.length !== 3) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Vous devez fournir exactement 3 sections",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Valider chaque section
+    for (let i = 0; i < sections.length; i++) {
+      const section = sections[i];
+      if (
+        !section.title ||
+        !section.subtitle ||
+        !section.text ||
+        !section.image
+      ) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: `La section ${i + 1} est incomplète`,
+          },
+          { status: 400 },
+        );
+      }
+    }
+
     const homePage = await HomePage.findOneAndUpdate(
       {},
       {
-        title,
-        subtitle,
-        text,
-        image,
+        sections,
       },
       {
         new: true,

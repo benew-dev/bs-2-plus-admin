@@ -20,9 +20,13 @@ export const metadata = {
 const NewHomePagePage = async () => {
   const homePageData = await getHomePageData();
 
-  // Si une page d'accueil existe déjà, rediriger vers la page de modification
-  if (homePageData && homePageData.title) {
-    redirect("/admin/homepage/edit");
+  // Si une page d'accueil existe déjà avec 3 sections, rediriger vers la page principale
+  if (
+    homePageData &&
+    homePageData.sections &&
+    homePageData.sections.length >= 3
+  ) {
+    redirect("/admin/homepage");
   }
 
   return <AddHomePageDetails />;

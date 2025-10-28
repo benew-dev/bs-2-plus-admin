@@ -20,8 +20,12 @@ export const metadata = {
 const EditHomePagePage = async () => {
   const homePageData = await getHomePageData();
 
-  // Si aucune page d'accueil n'existe, rediriger vers la page de création
-  if (!homePageData || !homePageData.title) {
+  // Si aucune page d'accueil n'existe ou pas de sections, rediriger vers la page de création
+  if (
+    !homePageData ||
+    !homePageData.sections ||
+    homePageData.sections.length === 0
+  ) {
     redirect("/admin/homepage/new");
   }
 
