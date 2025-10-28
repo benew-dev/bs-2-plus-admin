@@ -7,7 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import HomePageContext from "@/context/HomePageContext";
 
-const EditHomePageDetails = ({ data }) => {
+const EditHomePageDetails = ({ data, sectionId }) => {
   const router = useRouter();
   const { updateHomePageSection, loading, error, clearErrors } =
     useContext(HomePageContext);
@@ -95,7 +95,8 @@ const EditHomePageDetails = ({ data }) => {
       return;
     }
 
-    await updateHomePageSection(homePageData);
+    // Passer le sectionId et les données à la méthode
+    await updateHomePageSection(sectionId, homePageData);
   };
 
   const getWidgetOptions = () => {
@@ -149,17 +150,17 @@ const EditHomePageDetails = ({ data }) => {
     <div className="max-w-4xl mx-auto px-3 sm:px-0 pb-6 sm:pb-8">
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
-          Modifier la Page d'Accueil
+          Modifier la Section
         </h1>
         <p className="text-sm sm:text-base text-slate-600">
-          Modifiez le contenu de votre page d'accueil
+          Modifiez le contenu de cette section
         </p>
       </div>
 
       <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-        <div className="bg-linear-to-r from-indigo-500 to-purple-500 p-4 sm:p-6">
+        <div className="bg-gradient-to-r from-indigo-500 to-purple-500 p-4 sm:p-6">
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
               <svg
                 className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                 fill="none"
@@ -176,7 +177,7 @@ const EditHomePageDetails = ({ data }) => {
             </div>
             <div>
               <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
-                Modifier la page d'accueil
+                Modifier la section
               </h2>
               <p className="text-xs sm:text-sm text-white/80">
                 Mettez à jour les informations ci-dessous
@@ -292,7 +293,7 @@ const EditHomePageDetails = ({ data }) => {
           </div>
 
           {/* Section Upload Image */}
-          <div className="bg-linear-to-br from-slate-50 to-indigo-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border-2 border-dashed border-indigo-300">
+          <div className="bg-gradient-to-br from-slate-50 to-indigo-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border-2 border-dashed border-indigo-300">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4">
               <div>
                 <h3 className="text-base sm:text-lg font-semibold text-slate-800">
@@ -403,7 +404,7 @@ const EditHomePageDetails = ({ data }) => {
           <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-3 sm:p-4">
             <div className="flex gap-2 sm:gap-3">
               <svg
-                className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0 mt-0.5"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -430,7 +431,7 @@ const EditHomePageDetails = ({ data }) => {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-linear-to-r from-indigo-600 to-purple-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
+              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
             >
               {loading ? (
                 <>
