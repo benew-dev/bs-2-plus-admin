@@ -58,7 +58,7 @@ const OrderPurchased = ({ data }) => {
   return (
     <div className="relative overflow-x-hidden">
       {/* Header amélioré avec gradient - RESPONSIVE */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+      <div className="bg-linear-to-r from-purple-600 to-indigo-600 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">
@@ -88,7 +88,7 @@ const OrderPurchased = ({ data }) => {
 
       {/* Section Commandes Payées - RESPONSIVE */}
       <div className="bg-white rounded-none sm:rounded-lg shadow-md border-0 sm:border sm:border-gray-100 mb-4 sm:mb-6">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 px-3 sm:px-4 py-3 sm:py-4 bg-gradient-to-r from-green-50 to-green-100 border-b border-green-200">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 px-3 sm:px-4 py-3 sm:py-4 bg-linear-to-r from-green-50 to-green-100 border-b border-green-200">
           <h2 className="text-base sm:text-lg font-bold text-green-700 flex items-center gap-2">
             <i className="fa fa-check-circle text-sm sm:text-base"></i>
             <span className="hidden sm:inline">Commandes Payées Ce Mois</span>
@@ -114,7 +114,7 @@ const OrderPurchased = ({ data }) => {
 
       {/* Section Commandes Impayées - RESPONSIVE */}
       <div className="bg-white rounded-none sm:rounded-lg shadow-md border-0 sm:border sm:border-gray-100">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 px-3 sm:px-4 py-3 sm:py-4 bg-gradient-to-r from-red-50 to-red-100 border-b border-red-200">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 px-3 sm:px-4 py-3 sm:py-4 bg-linear-to-r from-red-50 to-red-100 border-b border-red-200">
           <h2 className="text-base sm:text-lg font-bold text-red-700 flex items-center gap-2">
             <i className="fa fa-exclamation-triangle text-sm sm:text-base"></i>
             <span className="hidden sm:inline">Commandes Impayées Ce Mois</span>

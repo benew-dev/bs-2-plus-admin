@@ -34,7 +34,7 @@ const UsersPurchasings = ({ data }) => {
   return (
     <div className="relative overflow-x-hidden">
       {/* Header amélioré avec gradient - RESPONSIVE */}
-      <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+      <div className="bg-linear-to-r from-emerald-600 to-emerald-700 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">
@@ -75,7 +75,7 @@ const UsersPurchasings = ({ data }) => {
       {/* Table Section avec design amélioré - RESPONSIVE */}
       <div className="bg-white rounded-none sm:rounded-lg shadow-md overflow-hidden border-0 sm:border sm:border-gray-100">
         {/* Header de la table - RESPONSIVE */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 px-3 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-emerald-50 to-emerald-100 border-b border-emerald-200">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 px-3 sm:px-6 py-3 sm:py-4 bg-linear-to-r from-emerald-50 to-emerald-100 border-b border-emerald-200">
           <h2 className="text-sm sm:text-base lg:text-lg font-bold text-gray-800 flex items-center gap-2">
             <i className="fa fa-trophy text-emerald-600 text-sm sm:text-base"></i>
             <span className="hidden sm:inline">

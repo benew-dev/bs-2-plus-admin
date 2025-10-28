@@ -14,7 +14,7 @@ const ProductsTable = ({ products, itemCount, deleteHandler }) => {
   return (
     <div>
       {/* Header du tableau avec compteur amélioré - RESPONSIVE */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 px-3 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 px-3 sm:px-6 py-3 sm:py-4 bg-linear-to-r from-gray-50 to-gray-100 border-b border-gray-200">
         <h2 className="text-base sm:text-lg font-bold text-gray-800 flex items-center gap-2">
           <i className="fa fa-box text-blue-600 text-sm sm:text-base"></i>
           <span className="hidden sm:inline">Inventaire des Produits</span>
@@ -34,7 +34,7 @@ const ProductsTable = ({ products, itemCount, deleteHandler }) => {
       {arrayHasData(products) ? (
         <div className="w-full py-12 sm:py-16 px-3 sm:px-6">
           <div className="max-w-md mx-auto text-center">
-            <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
+            <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-linear-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
               <svg
                 className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500"
                 fill="none"
@@ -63,7 +63,7 @@ const ProductsTable = ({ products, itemCount, deleteHandler }) => {
           {/* Vue Desktop - Tableau classique */}
           <div className="hidden lg:block overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs font-semibold uppercase bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 border-b-2 border-gray-300">
+              <thead className="text-xs font-semibold uppercase bg-linear-to-r from-gray-100 to-gray-200 text-gray-700 border-b-2 border-gray-300">
                 <tr>
                   <th scope="col" className="px-6 py-4">
                     <div className="flex items-center gap-2">
@@ -126,7 +126,7 @@ const ProductsTable = ({ products, itemCount, deleteHandler }) => {
                   >
                     <td className="px-6 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg overflow-hidden border-2 border-gray-200 flex-shrink-0">
+                        <div className="w-10 h-10 rounded-lg overflow-hidden border-2 border-gray-200 shrink-0">
                           <Image
                             src={
                               product?.images[0] !== undefined
@@ -234,7 +234,7 @@ const ProductsTable = ({ products, itemCount, deleteHandler }) => {
               >
                 {/* Header de la card avec image et nom */}
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 border-gray-200 flex-shrink-0">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 border-gray-200 shrink-0">
                     <Image
                       src={
                         product?.images[0] !== undefined

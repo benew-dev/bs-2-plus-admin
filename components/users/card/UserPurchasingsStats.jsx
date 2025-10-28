@@ -50,7 +50,7 @@ const UserPurchasingsStats = ({
     >
       {/* Header des stats - RESPONSIVE */}
       <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
-        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-emerald-100 rounded-lg flex items-center justify-center shrink-0">
           <i className="fa fa-chart-pie text-emerald-600 text-sm sm:text-base"></i>
         </div>
         <div>

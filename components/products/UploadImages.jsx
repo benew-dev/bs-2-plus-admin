@@ -103,7 +103,7 @@ const UploadImages = memo(({ id }) => {
 
   if (!uploadConfig) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-6 sm:py-8 px-3 sm:px-4 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-pink-50 py-6 sm:py-8 px-3 sm:px-4 flex items-center justify-center">
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-6 sm:p-8 border border-slate-200">
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 sm:w-8 sm:h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
@@ -117,7 +117,7 @@ const UploadImages = memo(({ id }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-6 sm:py-8 px-3 sm:px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-pink-50 py-6 sm:py-8 px-3 sm:px-4">
       <div className="max-w-5xl mx-auto">
         <div className="mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
@@ -129,10 +129,10 @@ const UploadImages = memo(({ id }) => {
         </div>
 
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-          <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 sm:p-6">
+          <div className="bg-linear-to-r from-purple-500 to-pink-500 p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
               <div className="flex items-center gap-3 sm:gap-4">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
                   <svg
                     className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                     fill="none"
@@ -261,7 +261,7 @@ const UploadImages = memo(({ id }) => {
               <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-3 sm:p-4">
                 <div className="flex gap-2 sm:gap-3">
                   <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0 mt-0.5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -285,7 +285,7 @@ const UploadImages = memo(({ id }) => {
               <div className="bg-purple-50 border-l-4 border-purple-500 rounded-lg p-3 sm:p-4">
                 <div className="flex gap-2 sm:gap-3">
                   <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-0.5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 shrink-0 mt-0.5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >

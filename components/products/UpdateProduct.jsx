@@ -103,7 +103,7 @@ const UpdateProduct = memo(
     const hasCategories = filteredCategories.length > 0;
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-6 sm:py-8 px-3 sm:px-4">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 py-6 sm:py-8 px-3 sm:px-4">
         <div className="max-w-4xl mx-auto">
           <div className="mb-6 sm:mb-8">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
@@ -119,7 +119,7 @@ const UpdateProduct = memo(
             <div className="bg-orange-50 border-l-4 border-orange-500 rounded-lg p-4 mb-6">
               <div className="flex gap-3">
                 <svg
-                  className="w-5 h-5 text-orange-500 flex-shrink-0"
+                  className="w-5 h-5 text-orange-500 shrink-0"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -145,7 +145,7 @@ const UpdateProduct = memo(
           <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
             <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-4 sm:p-6">
               <div className="flex items-center gap-3 sm:gap-4">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
                   <svg
                     className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                     fill="none"
@@ -393,9 +393,9 @@ const UpdateProduct = memo(
 
               {/* Active Toggle */}
               {canBeActivated && (
-                <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-slate-200">
+                <div className="bg-linear-to-br from-slate-50 to-blue-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-slate-200">
                   <label className="flex items-start cursor-pointer">
-                    <div className="relative flex-shrink-0">
+                    <div className="relative shrink-0">
                       <input
                         type="checkbox"
                         name="isActive"
@@ -424,7 +424,7 @@ const UpdateProduct = memo(
                 <div className="bg-orange-50 border-l-4 border-orange-500 rounded-lg p-3 sm:p-4">
                   <div className="flex gap-2 sm:gap-3">
                     <svg
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 flex-shrink-0 mt-0.5"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 shrink-0 mt-0.5"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -451,7 +451,7 @@ const UpdateProduct = memo(
               <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-3 sm:p-4">
                 <div className="flex gap-2 sm:gap-3">
                   <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0 mt-0.5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -484,7 +484,7 @@ const UpdateProduct = memo(
                 <button
                   type="submit"
                   disabled={!type || !hasCategories}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="flex-1 bg-linear-to-r from-blue-600 to-indigo-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   <svg
                     className="w-4 h-4 sm:w-5 sm:h-5"

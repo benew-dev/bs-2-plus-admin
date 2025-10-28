@@ -52,7 +52,7 @@ const ListProductSoldThisMonth = ({ productSoldThisMonth }) => {
   return arrayHasData(productSoldThisMonth) ? (
     <div className="w-full py-12 sm:py-16 px-3 sm:px-6">
       <div className="max-w-md mx-auto text-center">
-        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center">
+        <div className="mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-6 bg-linear-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center">
           <svg
             className="w-10 h-10 sm:w-12 sm:h-12 text-purple-500"
             fill="none"
@@ -81,7 +81,7 @@ const ListProductSoldThisMonth = ({ productSoldThisMonth }) => {
       {/* Vue Desktop - Tableau classique */}
       <div className="hidden lg:block overflow-x-auto">
         <table className="w-full text-sm text-left">
-          <thead className="text-xs font-semibold uppercase bg-gradient-to-r from-purple-100 to-purple-200 text-gray-700 border-b-2 border-purple-300">
+          <thead className="text-xs font-semibold uppercase bg-linear-to-r from-purple-100 to-purple-200 text-gray-700 border-b-2 border-purple-300">
             <tr>
               <th scope="col" className="px-6 py-4">
                 <div className="flex items-center gap-2">
@@ -118,7 +118,7 @@ const ListProductSoldThisMonth = ({ productSoldThisMonth }) => {
                 <td className="px-6 py-3">
                   <div className="flex items-center gap-3">
                     {getRankIcon(index)}
-                    <div className="w-10 h-10 rounded-lg overflow-hidden border-2 border-gray-200 flex-shrink-0">
+                    <div className="w-10 h-10 rounded-lg overflow-hidden border-2 border-gray-200 shrink-0">
                       <Image
                         loader={customLoader}
                         src={
@@ -208,8 +208,8 @@ const ListProductSoldThisMonth = ({ productSoldThisMonth }) => {
           >
             {/* Header de la card avec image et rang */}
             <div className="flex items-start gap-3 mb-3">
-              <div className="flex-shrink-0">{getRankBadge(index)}</div>
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 border-gray-200 flex-shrink-0">
+              <div className="shrink-0">{getRankBadge(index)}</div>
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 border-gray-200 shrink-0">
                 <Image
                   loader={customLoader}
                   src={

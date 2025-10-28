@@ -38,18 +38,18 @@ export default function InsightsPanel({ insights }) {
                 }`}
               >
                 <div className="flex items-start gap-2 sm:gap-3">
-                  <span className="text-2xl sm:text-3xl flex-shrink-0">
+                  <span className="text-2xl sm:text-3xl shrink-0">
                     {insight.icon}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-gray-800 text-xs sm:text-sm break-words">
+                    <p className="font-bold text-gray-800 text-xs sm:text-sm wrap-break-words">
                       {insight.title}
                     </p>
-                    <p className="text-xs sm:text-sm text-gray-700 mt-1 break-words">
+                    <p className="text-xs sm:text-sm text-gray-700 mt-1 wrap-break-words">
                       {insight.message}
                     </p>
                     {insight.value && (
-                      <p className="text-xs text-gray-600 mt-2 font-semibold break-words">
+                      <p className="text-xs text-gray-600 mt-2 font-semibold wrap-break-words">
                         {insight.value}
                       </p>
                     )}
@@ -103,17 +103,17 @@ export default function InsightsPanel({ insights }) {
                             : "INFO"}
                       </span>
                     </div>
-                    <p className="font-bold text-sm sm:text-base text-gray-800 break-words">
+                    <p className="font-bold text-sm sm:text-base text-gray-800 wrap-break-words">
                       {rec.title}
                     </p>
-                    <p className="text-xs sm:text-sm text-gray-700 mt-1 break-words">
+                    <p className="text-xs sm:text-sm text-gray-700 mt-1 wrap-break-words">
                       {rec.action}
                     </p>
                   </div>
                   {rec.link && (
                     <Link
                       href={rec.link}
-                      className="w-full sm:w-auto flex-shrink-0 text-center px-4 py-2 bg-white border border-gray-300 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors"
+                      className="w-full sm:w-auto shrink-0 text-center px-4 py-2 bg-white border border-gray-300 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors"
                     >
                       Voir
                     </Link>
@@ -125,8 +125,8 @@ export default function InsightsPanel({ insights }) {
         ) : (
           <div className="bg-green-50 border-l-4 border-green-500 p-3 sm:p-4 rounded-r-lg">
             <div className="flex items-center gap-2 sm:gap-3">
-              <span className="text-xl sm:text-2xl flex-shrink-0">✅</span>
-              <p className="text-sm sm:text-base text-green-800 font-semibold break-words">
+              <span className="text-xl sm:text-2xl shrink-0">✅</span>
+              <p className="text-sm sm:text-base text-green-800 font-semibold wrap-break-words">
                 Tout est sous contrôle ! Aucune action urgente nécessaire.
               </p>
             </div>

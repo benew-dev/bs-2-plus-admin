@@ -29,35 +29,35 @@ export default function MonthlySummary({ data }) {
 
       {/* KPIs principaux */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-3 sm:p-4">
+        <div className="bg-linear-to-br from-blue-50 to-blue-100 rounded-lg p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-600 mb-1">Commandes</p>
           <p className="text-2xl sm:text-3xl font-bold text-blue-600">
             {data.thisMonth.totalOrders}
           </p>
           <p
-            className={`text-xs mt-1 font-semibold break-words ${data.comparison.ordersGrowth >= 0 ? "text-green-600" : "text-red-600"}`}
+            className={`text-xs mt-1 font-semibold wrap-break-words ${data.comparison.ordersGrowth >= 0 ? "text-green-600" : "text-red-600"}`}
           >
             {data.comparison.ordersGrowth >= 0 ? "↗" : "↘"}{" "}
             {Math.abs(data.comparison.ordersGrowth)}% vs mois dernier
           </p>
         </div>
 
-        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-3 sm:p-4">
+        <div className="bg-linear-to-br from-green-50 to-green-100 rounded-lg p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-600 mb-1">Revenus</p>
-          <p className="text-2xl sm:text-3xl font-bold text-green-600 break-words">
+          <p className="text-2xl sm:text-3xl font-bold text-green-600 wrap-break-words">
             {Math.round(data.thisMonth.totalRevenue / 1000)}k
           </p>
           <p
-            className={`text-xs mt-1 font-semibold break-words ${data.comparison.revenueGrowth >= 0 ? "text-green-600" : "text-red-600"}`}
+            className={`text-xs mt-1 font-semibold wrap-break-words ${data.comparison.revenueGrowth >= 0 ? "text-green-600" : "text-red-600"}`}
           >
             {data.comparison.revenueGrowth >= 0 ? "↗" : "↘"}{" "}
             {Math.abs(data.comparison.revenueGrowth)}% vs mois dernier
           </p>
         </div>
 
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-3 sm:p-4">
+        <div className="bg-linear-to-br from-purple-50 to-purple-100 rounded-lg p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-600 mb-1">Panier moyen</p>
-          <p className="text-2xl sm:text-3xl font-bold text-purple-600 break-words">
+          <p className="text-2xl sm:text-3xl font-bold text-purple-600 wrap-break-words">
             {Math.round(data.thisMonth.avgOrderValue)} FDj
           </p>
           <p
@@ -68,12 +68,12 @@ export default function MonthlySummary({ data }) {
           </p>
         </div>
 
-        <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-3 sm:p-4">
+        <div className="bg-linear-to-br from-orange-50 to-orange-100 rounded-lg p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-600 mb-1">Conversion</p>
           <p className="text-2xl sm:text-3xl font-bold text-orange-600">
             {data.comparison.conversionRate}%
           </p>
-          <p className="text-xs mt-1 text-gray-600 break-words">
+          <p className="text-xs mt-1 text-gray-600 wrap-break-words">
             {data.thisMonth.paidOrders}/{data.thisMonth.totalOrders}
           </p>
         </div>
@@ -83,32 +83,32 @@ export default function MonthlySummary({ data }) {
       {data.forecast && (
         <div className="bg-blue-50 border-l-4 border-blue-500 p-3 sm:p-4 mb-4 sm:mb-6 rounded-r-lg">
           <div className="flex items-start gap-2 sm:gap-3">
-            <span className="text-xl sm:text-2xl flex-shrink-0">🔮</span>
+            <span className="text-xl sm:text-2xl shrink-0">🔮</span>
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-sm sm:text-base text-blue-800 break-words">
+              <p className="font-bold text-sm sm:text-base text-blue-800 wrap-break-words">
                 Prévisions de fin de mois
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-2">
                 <div>
-                  <p className="text-xs sm:text-sm text-blue-700 break-words">
+                  <p className="text-xs sm:text-sm text-blue-700 wrap-break-words">
                     Commandes projetées:{" "}
                     <span className="font-bold">
                       {data.forecast.forecastOrders}
                     </span>
                   </p>
-                  <p className="text-xs text-blue-600 break-words">
+                  <p className="text-xs text-blue-600 wrap-break-words">
                     Actuellement: {data.forecast.currentOrders} (
                     {data.forecast.daysRemaining} jours restants)
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs sm:text-sm text-blue-700 break-words">
+                  <p className="text-xs sm:text-sm text-blue-700 wrap-break-words">
                     Revenus projetés:{" "}
                     <span className="font-bold">
                       {data.forecast.forecastRevenue.toLocaleString()} FDj
                     </span>
                   </p>
-                  <p className="text-xs text-blue-600 break-words">
+                  <p className="text-xs text-blue-600 wrap-break-words">
                     Actuellement:{" "}
                     {data.forecast.currentRevenue.toLocaleString()} FDj
                   </p>
@@ -135,12 +135,12 @@ export default function MonthlySummary({ data }) {
       {data.bestDay && (
         <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 sm:p-4 mb-4 sm:mb-6 rounded-r-lg">
           <div className="flex items-center gap-2 sm:gap-3">
-            <span className="text-xl sm:text-2xl flex-shrink-0">⭐</span>
+            <span className="text-xl sm:text-2xl shrink-0">⭐</span>
             <div className="min-w-0">
               <p className="font-bold text-sm sm:text-base text-yellow-800">
                 Meilleur jour du mois
               </p>
-              <p className="text-xs sm:text-sm text-yellow-700 break-words">
+              <p className="text-xs sm:text-sm text-yellow-700 wrap-break-words">
                 Le {data.bestDay._id} avec {data.bestDay.orders} commandes et{" "}
                 {Math.round(data.bestDay.revenue)} FDj
               </p>
@@ -162,7 +162,7 @@ export default function MonthlySummary({ data }) {
             >
               <div className="flex items-center flex-1 min-w-0">
                 <span
-                  className={`font-bold mr-2 sm:mr-3 flex-shrink-0 ${index < 3 ? "text-yellow-600" : "text-gray-500"}`}
+                  className={`font-bold mr-2 sm:mr-3 shrink-0 ${index < 3 ? "text-yellow-600" : "text-gray-500"}`}
                 >
                   #{index + 1}
                 </span>
@@ -192,7 +192,7 @@ export default function MonthlySummary({ data }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             {data.categoryBreakdown.map((cat, index) => (
               <div key={index} className="bg-gray-50 rounded-lg p-2 sm:p-3">
-                <p className="text-xs sm:text-sm font-semibold text-gray-800 break-words">
+                <p className="text-xs sm:text-sm font-semibold text-gray-800 wrap-break-words">
                   {cat._id || "Non catégorisé"}
                 </p>
                 <div className="flex justify-between items-center mt-1">

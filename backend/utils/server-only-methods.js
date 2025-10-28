@@ -24,22 +24,45 @@ export const getHomePageData = async () => {
       },
     );
 
-    return (
-      data?.data || {
-        title: "",
-        subtitle: "",
-        text: "",
-        image: null,
-      }
-    );
+    return data?.data || { sections: [] };
   } catch (error) {
     console.error("Error fetching homepage data:", error);
-    return {
-      title: "",
-      subtitle: "",
-      text: "",
-      image: null,
-    };
+    return { sections: [] };
+  }
+};
+
+/**
+ * Récupérer une section spécifique de la page d'accueil
+ */
+export const getSingleHomePageSection = async (sectionId) => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/homepage`,
+      {
+        headers: {
+          Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+      },
+    );
+
+    if (!data?.data || !data.data.sections) {
+      return null;
+    }
+
+    // Trouver la section correspondante
+    const section = data.data.sections.find(
+      (s) => s._id.toString() === sectionId,
+    );
+
+    return section || null;
+  } catch (error) {
+    console.error("Error fetching single homepage section:", error);
+    return null;
   }
 };
 

@@ -75,14 +75,16 @@ const SingleOrderInfo = ({ order }) => {
       {/* Informations principales - RESPONSIVE */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
         {/* Personne */}
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-3 sm:p-4 rounded-lg border border-blue-200">
+        <div className="bg-linear-to-br from-blue-50 to-blue-100 p-3 sm:p-4 rounded-lg border border-blue-200">
           <p className="text-xs sm:text-sm text-blue-600 mb-2 font-semibold flex items-center gap-1.5">
             <i className="fa fa-user text-xs sm:text-sm"></i>
             Client
           </p>
           <ul className="text-gray-700 space-y-1 text-xs sm:text-sm">
-            <li className="font-medium break-words">{order?.user?.name}</li>
-            <li className="break-words">
+            <li className="font-medium wrap-break-words">
+              {order?.user?.name}
+            </li>
+            <li className="wrap-break-words">
               <span className="font-medium">Tél:</span> {order?.user?.phone}
             </li>
             <li className="break-all">{order?.user?.email}</li>
@@ -90,7 +92,7 @@ const SingleOrderInfo = ({ order }) => {
         </div>
 
         {/* Détails financiers */}
-        <div className="bg-gradient-to-br from-green-50 to-green-100 p-3 sm:p-4 rounded-lg border border-green-200">
+        <div className="bg-linear-to-br from-green-50 to-green-100 p-3 sm:p-4 rounded-lg border border-green-200">
           <p className="text-xs sm:text-sm text-green-600 mb-2 font-semibold flex items-center gap-1.5">
             <i className="fa fa-dollar-sign text-xs sm:text-sm"></i>
             Détails Financiers
@@ -108,7 +110,7 @@ const SingleOrderInfo = ({ order }) => {
         </div>
 
         {/* Informations de paiement */}
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 sm:p-4 rounded-lg border border-purple-200 sm:col-span-2 lg:col-span-1">
+        <div className="bg-linear-to-br from-purple-50 to-purple-100 p-3 sm:p-4 rounded-lg border border-purple-200 sm:col-span-2 lg:col-span-1">
           <p className="text-xs sm:text-sm text-purple-600 mb-2 font-semibold flex items-center gap-1.5">
             <i className="fa fa-credit-card text-xs sm:text-sm"></i>
             Infos de Paiement
@@ -118,7 +120,7 @@ const SingleOrderInfo = ({ order }) => {
               <span className="font-bold">Mode:</span>{" "}
               {order?.paymentInfo?.typePayment || "N/A"}
             </li>
-            <li className="break-words">
+            <li className="wrap-break-words">
               <span className="font-bold">Émetteur:</span>{" "}
               {order?.paymentInfo?.paymentAccountName || "N/A"}
             </li>
@@ -177,7 +179,7 @@ const SingleOrderInfo = ({ order }) => {
                 <i className="fa fa-exclamation-circle"></i>
                 Raison de l'annulation:
               </span>
-              <p className="text-red-700 text-xs sm:text-sm mt-1 break-words">
+              <p className="text-red-700 text-xs sm:text-sm mt-1 wrap-break-words">
                 {order?.cancelReason}
               </p>
             </div>
@@ -199,7 +201,7 @@ const SingleOrderInfo = ({ order }) => {
               className="flex flex-row p-2 sm:p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md transition-all duration-200"
               key={item?._id}
             >
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <div className="block w-16 h-16 sm:w-20 sm:h-20 rounded-md border border-gray-200 overflow-hidden p-1 sm:p-2 bg-gray-50">
                   <Image
                     src={item?.image}
@@ -233,7 +235,7 @@ const SingleOrderInfo = ({ order }) => {
       </div>
 
       {/* Section récapitulatif final - RESPONSIVE */}
-      <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-blue-100 border-2 border-blue-200 rounded-lg">
+      <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-linear-to-r from-blue-50 to-blue-100 border-2 border-blue-200 rounded-lg">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
           <div>
             <p className="text-xs text-gray-600 mb-1">ID Commande</p>

@@ -81,17 +81,17 @@ export default function MonthlyReport() {
             <p className="text-2xl sm:text-3xl font-bold text-blue-600">
               {data.thisMonth.totalOrders}
             </p>
-            <p className="text-xs text-gray-500 mt-1 break-words">
+            <p className="text-xs text-gray-500 mt-1 wrap-break-words">
               vs {data.lastMonth.totalOrders} le mois dernier
             </p>
           </div>
 
           <div className="bg-green-50 rounded-lg p-3 sm:p-4 border border-green-200">
             <p className="text-xs sm:text-sm text-gray-600 mb-1">Revenus</p>
-            <p className="text-xl sm:text-2xl font-bold text-green-600 break-words">
+            <p className="text-xl sm:text-2xl font-bold text-green-600 wrap-break-words">
               {data.thisMonth.totalRevenue.toLocaleString()} FDj
             </p>
-            <p className="text-xs text-gray-500 mt-1 break-words">
+            <p className="text-xs text-gray-500 mt-1 wrap-break-words">
               vs {data.lastMonth.totalRevenue.toLocaleString()} FDj
             </p>
           </div>
@@ -100,10 +100,10 @@ export default function MonthlyReport() {
             <p className="text-xs sm:text-sm text-gray-600 mb-1">
               Panier moyen
             </p>
-            <p className="text-xl sm:text-2xl font-bold text-purple-600 break-words">
+            <p className="text-xl sm:text-2xl font-bold text-purple-600 wrap-break-words">
               {Math.round(data.thisMonth.avgOrderValue)} FDj
             </p>
-            <p className="text-xs text-gray-500 mt-1 break-words">
+            <p className="text-xs text-gray-500 mt-1 wrap-break-words">
               vs {Math.round(data.lastMonth.avgOrderValue)} FDj
             </p>
           </div>
@@ -115,7 +115,7 @@ export default function MonthlyReport() {
             <p className="text-xl sm:text-2xl font-bold text-orange-600">
               {data.comparison.conversionRate}%
             </p>
-            <p className="text-xs text-gray-500 mt-1 break-words">
+            <p className="text-xs text-gray-500 mt-1 wrap-break-words">
               {data.thisMonth.paidOrders} payées / {data.thisMonth.totalOrders}{" "}
               total
             </p>
@@ -217,7 +217,7 @@ export default function MonthlyReport() {
                     <h3 className="text-sm sm:text-base font-bold text-gray-800 truncate">
                       {type._id || "Non spécifié"}
                     </h3>
-                    <span className="text-lg sm:text-xl flex-shrink-0 ml-2">
+                    <span className="text-lg sm:text-xl shrink-0 ml-2">
                       {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
                     </span>
                   </div>
@@ -357,7 +357,7 @@ export default function MonthlyReport() {
                 key={index}
                 className="border border-gray-200 rounded-lg p-3 sm:p-4"
               >
-                <p className="font-semibold text-sm sm:text-base text-gray-800 break-words">
+                <p className="font-semibold text-sm sm:text-base text-gray-800 wrap-break-words">
                   {cat._id || "Non catégorisé"}
                 </p>
                 <div className="flex justify-between items-center mt-2">
@@ -426,7 +426,7 @@ export default function MonthlyReport() {
 
       {/* Pied de page */}
       <div className="border-t-2 border-gray-200 pt-4 sm:pt-6 mt-6 sm:mt-8 text-center text-xs sm:text-sm text-gray-500">
-        <p className="break-words">
+        <p className="wrap-break-words">
           Rapport généré le{" "}
           {new Date().toLocaleDateString("fr-FR", {
             day: "numeric",

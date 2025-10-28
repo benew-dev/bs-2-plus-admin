@@ -77,10 +77,10 @@ const UpdateOrder = memo(({ order }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-4 sm:py-6 px-3 sm:px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 py-4 sm:py-6 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header avec gradient - RESPONSIVE */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-none sm:rounded-t-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+        <div className="bg-linear-to-r from-blue-600 to-indigo-600 rounded-none sm:rounded-t-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
             <div>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">
@@ -105,9 +105,9 @@ const UpdateOrder = memo(({ order }) => {
           <hr className="my-4 sm:my-6 border-t-2 border-gray-200" />
 
           {/* Section de modification du statut - RESPONSIVE */}
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 border border-gray-200">
+          <div className="bg-linear-to-br from-gray-50 to-gray-100 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 border border-gray-200">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
                 <i className="fa fa-edit text-blue-600 text-sm sm:text-base"></i>
               </div>
               <div>
@@ -163,7 +163,7 @@ const UpdateOrder = memo(({ order }) => {
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
                 <button
                   onClick={submitHandler}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 sm:py-2.5 px-4 sm:px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm sm:text-base"
+                  className="flex-1 bg-linear-to-r from-blue-600 to-indigo-600 text-white py-2 sm:py-2.5 px-4 sm:px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   <i className="fa fa-save"></i>
                   Enregistrer les Modifications
@@ -181,7 +181,7 @@ const UpdateOrder = memo(({ order }) => {
             {/* Note informative - RESPONSIVE */}
             <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
               <div className="flex items-start gap-2">
-                <i className="fa fa-info-circle text-blue-600 text-sm sm:text-base mt-0.5 flex-shrink-0"></i>
+                <i className="fa fa-info-circle text-blue-600 text-sm sm:text-base mt-0.5 shrink-0"></i>
                 <div>
                   <p className="text-xs sm:text-sm font-medium text-blue-800 mb-1">
                     Information

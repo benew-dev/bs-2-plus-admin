@@ -211,7 +211,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
   const canAddType = dataTypes.length < 3;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-3 sm:p-4 lg:p-6">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 p-3 sm:p-4 lg:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
@@ -227,7 +227,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                 <svg
                   className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                   fill="none"
@@ -257,7 +257,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
             {canAddType && (
               <form
                 onSubmit={submitTypeAddingHandler}
-                className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4 border-2 border-dashed border-purple-300 mb-6"
+                className="bg-linear-to-br from-purple-50 to-pink-50 rounded-lg p-4 border-2 border-dashed border-purple-300 mb-6"
               >
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Ajouter un nouveau type
@@ -275,7 +275,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                   <button
                     type="submit"
                     disabled={loadingStates.addingType || !newTypeName.trim()}
-                    className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="px-6 py-2.5 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   >
                     {loadingStates.addingType ? (
                       <>
@@ -309,7 +309,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
               <div className="bg-orange-50 border-l-4 border-orange-500 rounded-lg p-4 mb-6">
                 <div className="flex gap-3">
                   <svg
-                    className="w-5 h-5 text-orange-500 flex-shrink-0"
+                    className="w-5 h-5 text-orange-500 shrink-0"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -349,7 +349,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                 return (
                   <div
                     key={type._id}
-                    className={`bg-gradient-to-br ${
+                    className={`bg-linear-to-br ${
                       type.isActive
                         ? "from-purple-100 to-pink-100"
                         : "from-gray-100 to-gray-200"
@@ -616,7 +616,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-6 lg:p-8">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
                 <svg
                   className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                   fill="none"
@@ -654,7 +654,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                     setPaymentType("cash");
                     setShowPaymentModal(true);
                   }}
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg hover:shadow-xl font-semibold"
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-linear-to-r from-emerald-600 to-green-600 text-white rounded-xl hover:from-emerald-700 hover:to-green-700 transition-all shadow-lg hover:shadow-xl font-semibold"
                 >
                   {/* SVG Icon pour espèces/coins */}
                   <svg
@@ -679,7 +679,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                   setPaymentType("electronic");
                   setShowPaymentModal(true);
                 }}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl font-semibold"
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-linear-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl font-semibold"
               >
                 <svg
                   className="w-5 h-5"
@@ -711,8 +711,8 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                     key={payment._id}
                     className={`relative group ${
                       isCash
-                        ? "bg-gradient-to-br from-emerald-500 to-green-600"
-                        : "bg-gradient-to-br from-emerald-500 to-green-600"
+                        ? "bg-linear-to-br from-emerald-500 to-green-600"
+                        : "bg-linear-to-br from-emerald-500 to-green-600"
                     } rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all ${
                       isDeleting ? "opacity-50 scale-95" : "hover:scale-105"
                     }`}
@@ -785,12 +785,12 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                           </svg>
                         )}
                       </div>
-                      <h3 className="text-lg font-bold mb-2 break-words">
+                      <h3 className="text-lg font-bold mb-2 wrap-break-words">
                         {isCash
                           ? "Espèces"
                           : payment.paymentName || payment.platform}
                       </h3>
-                      <p className="text-white/90 font-mono text-sm break-words">
+                      <p className="text-white/90 font-mono text-sm wrap-break-words">
                         {isCash ? "À la livraison" : payment.paymentNumber}
                       </p>
                       {isCash && payment.description && (
@@ -836,8 +836,8 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
             <div
               className={`${
                 paymentType === "cash"
-                  ? "bg-gradient-to-r from-emerald-500 to-green-500"
-                  : "bg-gradient-to-r from-green-500 to-emerald-500"
+                  ? "bg-linear-to-r from-emerald-500 to-green-500"
+                  : "bg-linear-to-r from-green-500 to-emerald-500"
               } p-6 rounded-t-2xl`}
             >
               <div className="flex items-center justify-between">
@@ -912,7 +912,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                     <div className="flex gap-3">
                       {/* SVG Icon pour info dans le formulaire */}
                       <svg
-                        className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -940,7 +940,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                   <div className="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4">
                     <div className="flex gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-yellow-500 shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -1057,7 +1057,7 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                   <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-4">
                     <div className="flex gap-3">
                       <svg
-                        className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-green-500 shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -1091,8 +1091,8 @@ const Settings = ({ dataTypes, dataCategories, dataPayment }) => {
                   type="submit"
                   className={`flex-1 ${
                     paymentType === "cash"
-                      ? "bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700"
-                      : "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+                      ? "bg-linear-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700"
+                      : "bg-linear-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
                   } text-white py-3 px-6 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2`}
                 >
                   {paymentType === "cash" ? (

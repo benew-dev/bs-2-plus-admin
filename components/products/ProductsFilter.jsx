@@ -45,7 +45,7 @@ const ProductsFilter = ({ open, setLoading, categories, types }) => {
     >
       {/* Header du filtre avec design amélioré - RESPONSIVE */}
       <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
-        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
           <i className="fa fa-filter text-blue-600 text-sm sm:text-base"></i>
         </div>
         <div>
@@ -72,7 +72,7 @@ const ProductsFilter = ({ open, setLoading, categories, types }) => {
                 name="stock"
                 type="checkbox"
                 value="less"
-                className="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500 focus:ring-2 flex-shrink-0"
+                className="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500 focus:ring-2 shrink-0"
                 defaultChecked={stockFilter === "less"}
                 onClick={(e) => handleClick(e.target)}
               />
@@ -90,7 +90,7 @@ const ProductsFilter = ({ open, setLoading, categories, types }) => {
                 name="stock"
                 type="checkbox"
                 value="more"
-                className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 flex-shrink-0"
+                className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 shrink-0"
                 defaultChecked={stockFilter === "more"}
                 onClick={(e) => handleClick(e.target)}
               />
@@ -134,12 +134,12 @@ const ProductsFilter = ({ open, setLoading, categories, types }) => {
                       name="type"
                       type="checkbox"
                       value={type?._id}
-                      className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 flex-shrink-0"
+                      className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 shrink-0"
                       defaultChecked={typeFilter === type?._id}
                       onClick={(e) => handleClick(e.target)}
                     />
                     <span className="ml-2 sm:ml-3 flex items-center gap-1.5 sm:gap-2 min-w-0">
-                      <i className="fa fa-layer-group text-indigo-600 text-xs sm:text-sm flex-shrink-0"></i>
+                      <i className="fa fa-layer-group text-indigo-600 text-xs sm:text-sm shrink-0"></i>
                       <span className="text-xs sm:text-sm font-medium text-gray-700 group-hover:text-indigo-700 truncate">
                         {type?.nom}
                       </span>
@@ -181,12 +181,12 @@ const ProductsFilter = ({ open, setLoading, categories, types }) => {
                       name="category"
                       type="checkbox"
                       value={category?._id}
-                      className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 flex-shrink-0"
+                      className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 shrink-0"
                       defaultChecked={categoryFilter === category?._id}
                       onClick={(e) => handleClick(e.target)}
                     />
                     <span className="ml-2 sm:ml-3 flex items-center gap-1.5 sm:gap-2 min-w-0">
-                      <i className="fa fa-tag text-blue-600 text-xs sm:text-sm flex-shrink-0"></i>
+                      <i className="fa fa-tag text-blue-600 text-xs sm:text-sm shrink-0"></i>
                       <span className="text-xs sm:text-sm font-medium text-gray-700 group-hover:text-blue-700 truncate">
                         {category?.categoryName}
                       </span>
@@ -202,7 +202,7 @@ const ProductsFilter = ({ open, setLoading, categories, types }) => {
       {/* Note informative - RESPONSIVE */}
       <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <div className="flex items-start gap-2 sm:gap-3">
-          <i className="fa fa-info-circle text-blue-600 text-base sm:text-lg mt-0.5 flex-shrink-0"></i>
+          <i className="fa fa-info-circle text-blue-600 text-base sm:text-lg mt-0.5 shrink-0"></i>
           <div>
             <p className="text-xs sm:text-sm font-medium text-blue-800 mb-1">
               Information
@@ -223,7 +223,7 @@ const ProductsFilter = ({ open, setLoading, categories, types }) => {
               setLoading(true);
               router.push(window.location.pathname);
             }}
-            className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-gray-600 to-gray-700 text-white font-medium rounded-lg hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-sm"
+            className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-linear-to-r from-gray-600 to-gray-700 text-white font-medium rounded-lg hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-sm"
           >
             <i className="fa fa-times"></i>
             Réinitialiser les filtres

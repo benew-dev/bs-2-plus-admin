@@ -27,7 +27,7 @@ export default function MainDashboard({ data, insights }) {
   return (
     <div className="space-y-4 sm:space-y-6 p-3 sm:p-4 lg:p-6">
       {/* Date + Heure */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg sm:rounded-xl p-4 sm:p-5 lg:p-6 text-white shadow-lg">
+      <div className="bg-linear-to-r from-blue-600 to-indigo-600 rounded-lg sm:rounded-xl p-4 sm:p-5 lg:p-6 text-white shadow-lg">
         <h1 className="text-xl sm:text-2xl font-bold">Bonjour Admin 👋</h1>
         <p className="text-xs sm:text-sm text-blue-100 mt-1">
           {new Date().toLocaleDateString("fr-FR", {
@@ -103,7 +103,7 @@ export default function MainDashboard({ data, insights }) {
 
           <div className="p-3 sm:p-4 bg-green-50 rounded-lg">
             <p className="text-xs sm:text-sm text-gray-500">Revenus</p>
-            <p className="text-2xl sm:text-3xl font-bold text-green-600 my-1 sm:my-2 break-words">
+            <p className="text-2xl sm:text-3xl font-bold text-green-600 my-1 sm:my-2 wrap-break-words">
               {data.weekly.thisWeek.revenue.toLocaleString()} FDj
             </p>
             <p

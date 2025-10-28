@@ -50,7 +50,7 @@ export default function WeeklySummary({ data }) {
 
         <div className="bg-green-50 rounded-lg p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-600 mb-1">Revenus</p>
-          <p className="text-xl sm:text-2xl font-bold text-green-600 break-words">
+          <p className="text-xl sm:text-2xl font-bold text-green-600 wrap-break-words">
             {data.thisWeek.totalRevenue.toLocaleString()} FDj
           </p>
           <p
@@ -63,7 +63,7 @@ export default function WeeklySummary({ data }) {
 
         <div className="bg-purple-50 rounded-lg p-3 sm:p-4">
           <p className="text-xs sm:text-sm text-gray-600 mb-1">Panier moyen</p>
-          <p className="text-xl sm:text-2xl font-bold text-purple-600 break-words">
+          <p className="text-xl sm:text-2xl font-bold text-purple-600 wrap-break-words">
             {Math.round(data.thisWeek.avgOrderValue)} FDj
           </p>
           <p
@@ -81,7 +81,7 @@ export default function WeeklySummary({ data }) {
           <p className="text-xl sm:text-2xl font-bold text-orange-600">
             {data.comparison.conversionRate}%
           </p>
-          <p className="text-xs mt-1 text-gray-500 break-words">
+          <p className="text-xs mt-1 text-gray-500 wrap-break-words">
             {data.thisWeek.paidOrders}/{data.thisWeek.totalOrders} payées
           </p>
         </div>
@@ -91,12 +91,12 @@ export default function WeeklySummary({ data }) {
       {data.bestDayOfWeek && (
         <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 sm:p-4 mb-4 sm:mb-6 rounded-r-lg">
           <div className="flex items-center gap-2 sm:gap-3">
-            <span className="text-xl sm:text-2xl flex-shrink-0">⭐</span>
+            <span className="text-xl sm:text-2xl shrink-0">⭐</span>
             <div className="min-w-0">
               <p className="font-bold text-sm sm:text-base text-yellow-800">
                 Meilleur jour historique
               </p>
-              <p className="text-xs sm:text-sm text-yellow-700 break-words">
+              <p className="text-xs sm:text-sm text-yellow-700 wrap-break-words">
                 {data.bestDayOfWeek.day} génère en moyenne{" "}
                 {Math.round(data.bestDayOfWeek.avgRevenue)} FDj
               </p>
@@ -149,7 +149,7 @@ export default function WeeklySummary({ data }) {
               className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 bg-gray-50 rounded-lg"
             >
               <div className="flex items-center flex-1 min-w-0">
-                <span className="font-semibold text-xs sm:text-sm text-gray-700 mr-2 flex-shrink-0">
+                <span className="font-semibold text-xs sm:text-sm text-gray-700 mr-2 shrink-0">
                   {index + 1}.
                 </span>
                 <span className="text-xs sm:text-sm text-gray-800 truncate">
@@ -184,7 +184,7 @@ export default function WeeklySummary({ data }) {
                 <p className="text-base sm:text-lg font-bold text-gray-800">
                   {method.count}
                 </p>
-                <p className="text-xs text-gray-600 break-words">
+                <p className="text-xs text-gray-600 wrap-break-words">
                   {method.revenue.toLocaleString()} FDj
                 </p>
               </div>

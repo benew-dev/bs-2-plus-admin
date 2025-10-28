@@ -3,8 +3,32 @@
 
 import { CldImage } from "next-cloudinary";
 import Link from "next/link";
+import { useState, useContext } from "react";
+import HomePageContext from "@/context/HomePageContext";
 
 export default function HomePage({ data }) {
+  const { deleteHomePageSection, loading } = useContext(HomePageContext);
+  const [deletingId, setDeletingId] = useState(null);
+
+  const handleDelete = async (sectionId, sectionTitle) => {
+    if (
+      !confirm(
+        `Êtes-vous sûr de vouloir supprimer la section "${sectionTitle}" ?`,
+      )
+    ) {
+      return;
+    }
+
+    try {
+      setDeletingId(sectionId);
+      await deleteHomePageSection(sectionId);
+    } catch (error) {
+      console.error("Error deleting section:", error);
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   if (!data || !data.sections || data.sections.length === 0) {
     return (
       <div className="bg-white rounded-lg sm:rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-6 lg:p-8">
@@ -82,25 +106,6 @@ export default function HomePage({ data }) {
               </p>
             </div>
           </div>
-          <Link
-            href="/admin/homepage/edit"
-            className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-indigo-600 rounded-lg sm:rounded-xl hover:bg-white/90 transition-all shadow-lg font-semibold text-sm sm:text-base"
-          >
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-              />
-            </svg>
-            Modifier
-          </Link>
         </div>
       </div>
 
@@ -108,18 +113,73 @@ export default function HomePage({ data }) {
         {/* Boucle sur les sections */}
         {data.sections.map((section, index) => (
           <div
-            key={index}
+            key={section._id}
             className="border-2 border-slate-200 rounded-xl sm:rounded-2xl p-4 sm:p-6 bg-slate-50"
           >
-            <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 rounded-xl flex items-center justify-center shrink-0">
-                <span className="text-white font-bold text-lg sm:text-xl">
-                  {index + 1}
-                </span>
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 rounded-xl flex items-center justify-center shrink-0">
+                  <span className="text-white font-bold text-lg sm:text-xl">
+                    {index + 1}
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-800">
+                  Section {index + 1}
+                </h3>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-slate-800">
-                Section {index + 1}
-              </h3>
+
+              {/* Actions Buttons */}
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/admin/homepage/${section._id}`}
+                  className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all text-xs sm:text-sm font-semibold"
+                >
+                  <svg
+                    className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                    />
+                  </svg>
+                  Modifier
+                </Link>
+
+                <button
+                  onClick={() => handleDelete(section._id, section.title)}
+                  disabled={loading || deletingId === section._id}
+                  className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all text-xs sm:text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {deletingId === section._id ? (
+                    <>
+                      <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span className="hidden sm:inline">Suppression...</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                      <span className="hidden sm:inline">Supprimer</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
             <div className="space-y-4 sm:space-y-6">

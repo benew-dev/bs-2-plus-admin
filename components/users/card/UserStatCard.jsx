@@ -81,7 +81,7 @@ const UserStatCard = ({ title, content, indication, color, icon }) => {
           </p>
         </div>
         {icon && (
-          <div className={`${colors.icon} ml-2 flex-shrink-0`}>
+          <div className={`${colors.icon} ml-2 shrink-0`}>
             <i
               className={`fa ${icon} text-base sm:text-lg`}
               aria-hidden="true"
@@ -92,7 +92,7 @@ const UserStatCard = ({ title, content, indication, color, icon }) => {
 
       {/* Contenu principal - RESPONSIVE */}
       <div className="mb-2 sm:mb-3">
-        <p className="text-gray-900 font-bold text-base sm:text-lg lg:text-xl leading-tight break-words">
+        <p className="text-gray-900 font-bold text-base sm:text-lg lg:text-xl leading-tight wrap-break-words">
           {content || "Aucun"}
         </p>
       </div>

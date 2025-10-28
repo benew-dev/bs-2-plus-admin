@@ -43,7 +43,7 @@ const Products = memo(({ data }) => {
   return (
     <div className="relative overflow-x-hidden">
       {/* Header amélioré avec gradient - RESPONSIVE */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+      <div className="bg-linear-to-r from-blue-600 to-blue-700 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">

@@ -94,7 +94,7 @@ const NewProduct = ({ initialTypes = [], initialCategories = [] }) => {
   const hasCategories = filteredCategories.length > 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50 py-6 sm:py-8 px-3 sm:px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-indigo-50 to-purple-50 py-6 sm:py-8 px-3 sm:px-4">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
@@ -110,7 +110,7 @@ const NewProduct = ({ initialTypes = [], initialCategories = [] }) => {
           <div className="bg-orange-50 border-l-4 border-orange-500 rounded-lg p-4 mb-6">
             <div className="flex gap-3">
               <svg
-                className="w-5 h-5 text-orange-500 flex-shrink-0"
+                className="w-5 h-5 text-orange-500 shrink-0"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -138,9 +138,9 @@ const NewProduct = ({ initialTypes = [], initialCategories = [] }) => {
         )}
 
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-          <div className="bg-gradient-to-r from-indigo-500 to-purple-500 p-4 sm:p-6">
+          <div className="bg-linear-to-r from-indigo-500 to-purple-500 p-4 sm:p-6">
             <div className="flex items-center gap-3 sm:gap-4">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
                 <svg
                   className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                   fill="none"

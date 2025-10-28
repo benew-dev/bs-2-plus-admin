@@ -43,7 +43,7 @@ export default function DailyCards({ data }) {
             <span className="text-xl sm:text-2xl">{card.icon}</span>
           </div>
 
-          <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 break-words">
+          <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 wrap-break-word">
             {card.value}
           </p>
 

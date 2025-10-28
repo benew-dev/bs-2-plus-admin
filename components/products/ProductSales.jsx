@@ -44,7 +44,7 @@ const ProductSales = ({ data }) => {
   return (
     <div className="relative overflow-x-hidden">
       {/* Header amélioré avec gradient - RESPONSIVE */}
-      <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+      <div className="bg-linear-to-r from-purple-600 to-purple-700 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">
@@ -109,7 +109,7 @@ const ProductSales = ({ data }) => {
       {/* Table Section avec design amélioré - RESPONSIVE */}
       <div className="bg-white rounded-none sm:rounded-lg shadow-md overflow-hidden border-0 sm:border sm:border-gray-100">
         {/* Header de la table - RESPONSIVE */}
-        <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center px-3 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-purple-50 to-purple-100 border-b border-purple-200">
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center px-3 sm:px-6 py-3 sm:py-4 bg-linear-to-r from-purple-50 to-purple-100 border-b border-purple-200">
           <h2 className="text-sm sm:text-base lg:text-lg font-bold text-gray-800 flex items-center gap-2">
             <i className="fa fa-trophy text-purple-600 text-sm sm:text-base"></i>
             <span className="hidden sm:inline">

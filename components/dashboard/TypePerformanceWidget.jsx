@@ -54,7 +54,7 @@ export default function TypePerformanceWidget() {
   );
 
   return (
-    <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg border-2 border-purple-200">
+    <div className="bg-linear-to-br from-purple-50 to-indigo-50 rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg border-2 border-purple-200">
       {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div>
@@ -123,7 +123,7 @@ export default function TypePerformanceWidget() {
                   </div>
                 </div>
                 <span
-                  className={`text-xs sm:text-sm font-bold ${colorScheme.text} flex-shrink-0 ml-2`}
+                  className={`text-xs sm:text-sm font-bold ${colorScheme.text} shrink-0 ml-2`}
                 >
                   {percentage}%
                 </span>
@@ -134,7 +134,7 @@ export default function TypePerformanceWidget() {
                 <div>
                   <p className="text-xs text-gray-600">Revenus</p>
                   <p
-                    className={`text-sm sm:text-base font-bold ${colorScheme.text} break-words`}
+                    className={`text-sm sm:text-base font-bold ${colorScheme.text} wrap-break-words`}
                   >
                     {(type.totalRevenue / 1000).toFixed(1)}k
                   </p>
@@ -150,7 +150,7 @@ export default function TypePerformanceWidget() {
                 <div>
                   <p className="text-xs text-gray-600">Panier moy.</p>
                   <p
-                    className={`text-sm sm:text-base font-bold ${colorScheme.text} break-words`}
+                    className={`text-sm sm:text-base font-bold ${colorScheme.text} wrap-break-words`}
                   >
                     {Math.round(type.avgOrderValue)}
                   </p>

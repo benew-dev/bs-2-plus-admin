@@ -25,11 +25,11 @@ const UserProfile = ({ data }) => {
     .reduce((sum, order) => sum + (order.totalAmount || 0), 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-4 sm:py-6 lg:py-8 px-3 sm:px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 py-4 sm:py-6 lg:py-8 px-3 sm:px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header Card avec Avatar - RESPONSIVE */}
         <div className="bg-white rounded-none sm:rounded-2xl shadow-xl overflow-hidden mb-4 sm:mb-6 border-0 sm:border sm:border-slate-200">
-          <div className="relative h-24 sm:h-32 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+          <div className="relative h-24 sm:h-32 bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600">
             <div className="absolute -bottom-12 sm:-bottom-16 left-4 sm:left-8">
               <div className="relative">
                 <img
@@ -108,7 +108,7 @@ const UserProfile = ({ data }) => {
           {/* Informations de contact */}
           <div className="bg-white rounded-none sm:rounded-xl shadow-lg p-4 sm:p-6 border-0 sm:border sm:border-slate-200 hover:shadow-xl transition-shadow">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600"
                   fill="none"
@@ -148,7 +148,7 @@ const UserProfile = ({ data }) => {
           {/* Adresse */}
           <div className="bg-white rounded-none sm:rounded-xl shadow-lg p-4 sm:p-6 border-0 sm:border sm:border-slate-200 hover:shadow-xl transition-shadow">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-lg flex items-center justify-center shrink-0">
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5 text-green-600"
                   fill="none"
@@ -176,7 +176,7 @@ const UserProfile = ({ data }) => {
             <div className="space-y-2">
               {user?.address?.street ? (
                 <>
-                  <p className="text-xs sm:text-sm font-medium text-slate-700 break-words">
+                  <p className="text-xs sm:text-sm font-medium text-slate-700 wrap-break-words">
                     {user.address.street}
                   </p>
                   <p className="text-xs sm:text-sm text-slate-600">
@@ -195,7 +195,7 @@ const UserProfile = ({ data }) => {
           {/* Activité */}
           <div className="bg-white rounded-none sm:rounded-xl shadow-lg p-4 sm:p-6 border-0 sm:border sm:border-slate-200 hover:shadow-xl transition-shadow">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-100 rounded-lg flex items-center justify-center shrink-0">
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600"
                   fill="none"
@@ -237,10 +237,10 @@ const UserProfile = ({ data }) => {
 
         {/* Section Produits Favoris - RESPONSIVE */}
         <div className="bg-white rounded-none sm:rounded-xl shadow-lg border-0 sm:border sm:border-slate-200 overflow-hidden mb-4 sm:mb-6">
-          <div className="bg-gradient-to-r from-pink-50 to-rose-100 px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200">
+          <div className="bg-linear-to-r from-pink-50 to-rose-100 px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-pink-100 rounded-lg flex items-center justify-center shrink-0">
                   <svg
                     className="w-4 h-4 sm:w-5 sm:h-5 text-pink-600"
                     fill="currentColor"
@@ -344,7 +344,7 @@ const UserProfile = ({ data }) => {
 
         {/* Tableau des commandes - RESPONSIVE */}
         <div className="bg-white rounded-none sm:rounded-xl shadow-lg border-0 sm:border sm:border-slate-200 overflow-hidden">
-          <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200">
+          <div className="bg-linear-to-r from-slate-50 to-slate-100 px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
               <h2 className="text-lg sm:text-xl font-bold text-slate-800">
                 Historique des commandes

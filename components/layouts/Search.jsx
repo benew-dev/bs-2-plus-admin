@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
-import { searchSchema } from '@/helpers/schemas';
+import React, { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { searchSchema } from "@/helpers/schemas";
 
 // eslint-disable-next-line react/prop-types
 const Search = ({ setLoading }) => {
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState("");
 
   const router = useRouter();
   const pathName = usePathname();
@@ -34,7 +34,7 @@ const Search = ({ setLoading }) => {
 
   return (
     <form
-      className="flex flex-nowrap items-center justify-end order-last md:order-none mt-5"
+      className="flex flex-nowrap items-center justify-end order-last md:order-0 mt-5"
       onSubmit={submitHandler}
     >
       <input

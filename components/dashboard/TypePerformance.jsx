@@ -70,7 +70,7 @@ export default function TypePerformance({ data }) {
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg sm:rounded-xl p-4 sm:p-6 text-white shadow-lg">
+      <div className="bg-linear-to-r from-purple-600 to-indigo-600 rounded-lg sm:rounded-xl p-4 sm:p-6 text-white shadow-lg">
         <h1 className="text-xl sm:text-2xl font-bold">
           📊 Analytics par Type de Produit
         </h1>
@@ -104,7 +104,7 @@ export default function TypePerformance({ data }) {
           return (
             <div
               key={index}
-              className={`bg-gradient-to-br ${colorScheme.bg} border-2 ${colorScheme.border} p-4 sm:p-5 rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-all`}
+              className={`bg-linear-to-br ${colorScheme.bg} border-2 ${colorScheme.border} p-4 sm:p-5 rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-all`}
             >
               <div className="flex justify-between items-start mb-2">
                 <p className="text-xs sm:text-sm font-semibold text-gray-700">
@@ -116,7 +116,7 @@ export default function TypePerformance({ data }) {
               </div>
 
               <p
-                className={`text-2xl sm:text-3xl font-bold ${colorScheme.text} mb-2 break-words`}
+                className={`text-2xl sm:text-3xl font-bold ${colorScheme.text} mb-2 wrap-break-words`}
               >
                 {(type.totalRevenue / 1000).toFixed(1)}k FDj
               </p>
@@ -243,7 +243,7 @@ export default function TypePerformance({ data }) {
       </div>
 
       {/* Insights */}
-      <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg sm:rounded-xl p-4 sm:p-6">
+      <div className="bg-linear-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg sm:rounded-xl p-4 sm:p-6">
         <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2">
           <span className="text-xl sm:text-2xl">💡</span>
           Insights Clés

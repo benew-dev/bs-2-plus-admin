@@ -43,7 +43,7 @@ const OrdersFilter = ({ open, setLoading }) => {
     >
       {/* Header du filtre avec design amélioré - RESPONSIVE */}
       <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
-        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
           <i className="fa fa-filter text-blue-600 text-sm sm:text-base"></i>
         </div>
         <div>
@@ -69,12 +69,12 @@ const OrdersFilter = ({ open, setLoading }) => {
                 name="paymentStatus"
                 type="checkbox"
                 value="paid"
-                className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 flex-shrink-0"
+                className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 shrink-0"
                 defaultChecked={paymentFilter === "paid"}
                 onClick={(e) => handleClick(e.target)}
               />
               <span className="ml-2 sm:ml-3 flex items-center gap-1.5 sm:gap-2 min-w-0">
-                <i className="fa fa-check-circle text-green-600 text-xs sm:text-sm flex-shrink-0"></i>
+                <i className="fa fa-check-circle text-green-600 text-xs sm:text-sm shrink-0"></i>
                 <span className="text-xs sm:text-sm font-medium text-gray-700 group-hover:text-green-700 truncate">
                   Payées
                 </span>
@@ -87,12 +87,12 @@ const OrdersFilter = ({ open, setLoading }) => {
                 name="paymentStatus"
                 type="checkbox"
                 value="unpaid"
-                className="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500 focus:ring-2 flex-shrink-0"
+                className="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500 focus:ring-2 shrink-0"
                 defaultChecked={paymentFilter === "unpaid"}
                 onClick={(e) => handleClick(e.target)}
               />
               <span className="ml-2 sm:ml-3 flex items-center gap-1.5 sm:gap-2 min-w-0">
-                <i className="fa fa-times-circle text-red-600 text-xs sm:text-sm flex-shrink-0"></i>
+                <i className="fa fa-times-circle text-red-600 text-xs sm:text-sm shrink-0"></i>
                 <span className="text-xs sm:text-sm font-medium text-gray-700 group-hover:text-red-700 truncate">
                   Non payées
                 </span>
@@ -105,12 +105,12 @@ const OrdersFilter = ({ open, setLoading }) => {
                 name="paymentStatus"
                 type="checkbox"
                 value="refunded"
-                className="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500 focus:ring-2 flex-shrink-0"
+                className="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500 focus:ring-2 shrink-0"
                 defaultChecked={paymentFilter === "refunded"}
                 onClick={(e) => handleClick(e.target)}
               />
               <span className="ml-2 sm:ml-3 flex items-center gap-1.5 sm:gap-2 min-w-0">
-                <i className="fa fa-undo text-orange-600 text-xs sm:text-sm flex-shrink-0"></i>
+                <i className="fa fa-undo text-orange-600 text-xs sm:text-sm shrink-0"></i>
                 <span className="text-xs sm:text-sm font-medium text-gray-700 group-hover:text-orange-700 truncate">
                   Remboursées
                 </span>
@@ -123,12 +123,12 @@ const OrdersFilter = ({ open, setLoading }) => {
                 name="paymentStatus"
                 type="checkbox"
                 value="cancelled"
-                className="h-4 w-4 text-gray-600 border-gray-300 rounded focus:ring-gray-500 focus:ring-2 flex-shrink-0"
+                className="h-4 w-4 text-gray-600 border-gray-300 rounded focus:ring-gray-500 focus:ring-2 shrink-0"
                 defaultChecked={paymentFilter === "cancelled"}
                 onClick={(e) => handleClick(e.target)}
               />
               <span className="ml-2 sm:ml-3 flex items-center gap-1.5 sm:gap-2 min-w-0">
-                <i className="fa fa-exclamation-triangle text-gray-600 text-xs sm:text-sm flex-shrink-0"></i>
+                <i className="fa fa-exclamation-triangle text-gray-600 text-xs sm:text-sm shrink-0"></i>
                 <span className="text-xs sm:text-sm font-medium text-gray-700 group-hover:text-gray-700 truncate">
                   Échouées
                 </span>
@@ -140,7 +140,7 @@ const OrdersFilter = ({ open, setLoading }) => {
         {/* Note informative - RESPONSIVE */}
         <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <div className="flex items-start gap-2 sm:gap-3">
-            <i className="fa fa-info-circle text-blue-600 text-base sm:text-lg mt-0.5 flex-shrink-0"></i>
+            <i className="fa fa-info-circle text-blue-600 text-base sm:text-lg mt-0.5 shrink-0"></i>
             <div>
               <p className="text-xs sm:text-sm font-medium text-blue-800 mb-1">
                 Information
@@ -161,7 +161,7 @@ const OrdersFilter = ({ open, setLoading }) => {
                 setLoading(true);
                 router.push(window.location.pathname);
               }}
-              className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-gray-600 to-gray-700 text-white font-medium rounded-lg hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-sm"
+              className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-linear-to-r from-gray-600 to-gray-700 text-white font-medium rounded-lg hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-sm"
             >
               <i className="fa fa-times"></i>
               Réinitialiser les filtres

@@ -35,13 +35,13 @@ const ProductProfile = ({ data }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-6 sm:py-8 px-3 sm:px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-pink-50 py-6 sm:py-8 px-3 sm:px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6">
           <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 sm:gap-6">
             <div className="flex-1">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2 sm:mb-3 break-words">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2 sm:mb-3 wrap-break-words">
                 {product?.name}
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 font-mono mb-3 sm:mb-4 break-all">
@@ -64,12 +64,12 @@ const ProductProfile = ({ data }) => {
                 </span>
 
                 {/* NOUVEAU : Badge Type */}
-                <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-indigo-100 text-indigo-700 rounded-full text-xs sm:text-sm font-semibold border-2 border-indigo-200 break-words">
+                <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-indigo-100 text-indigo-700 rounded-full text-xs sm:text-sm font-semibold border-2 border-indigo-200 wrap-break-words">
                   <i className="fa fa-layer-group mr-1.5"></i>
                   {product?.type?.nom || "Sans type"}
                 </span>
 
-                <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-purple-100 text-purple-700 rounded-full text-xs sm:text-sm font-semibold border-2 border-purple-200 break-words">
+                <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-purple-100 text-purple-700 rounded-full text-xs sm:text-sm font-semibold border-2 border-purple-200 wrap-break-words">
                   <i className="fa fa-tag mr-1.5"></i>
                   {product?.category?.categoryName || "Sans catégorie"}
                 </span>
@@ -78,7 +78,7 @@ const ProductProfile = ({ data }) => {
 
             {/* Stats rapides */}
             <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
-              <div className="text-center bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 border border-blue-200">
+              <div className="text-center bg-linear-to-br from-blue-50 to-blue-100 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 border border-blue-200">
                 <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-600">
                   {product?.stock || 0}
                 </div>
@@ -86,7 +86,7 @@ const ProductProfile = ({ data }) => {
                   Stock
                 </div>
               </div>
-              <div className="text-center bg-gradient-to-br from-green-50 to-green-100 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 border border-green-200">
+              <div className="text-center bg-linear-to-br from-green-50 to-green-100 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 border border-green-200">
                 <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-green-600">
                   {product?.sold || 0}
                 </div>
@@ -94,8 +94,8 @@ const ProductProfile = ({ data }) => {
                   Vendus
                 </div>
               </div>
-              <div className="text-center bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 border border-purple-200">
-                <div className="text-base sm:text-xl lg:text-2xl font-bold text-purple-600 break-words">
+              <div className="text-center bg-linear-to-br from-purple-50 to-purple-100 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 border border-purple-200">
+                <div className="text-base sm:text-xl lg:text-2xl font-bold text-purple-600 wrap-break-words">
                   {formatPrice(product?.price || 0)}
                 </div>
                 <div className="text-xs text-purple-700 uppercase font-semibold mt-1">
@@ -199,7 +199,7 @@ const ProductProfile = ({ data }) => {
             {activeTab === "infos" && (
               <div className="space-y-4 sm:space-y-6 animate-fadeIn">
                 {/* Galerie d'images */}
-                <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-slate-200">
+                <div className="bg-linear-to-br from-slate-50 to-slate-100 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-slate-200">
                   <h3 className="text-base sm:text-lg lg:text-xl font-bold text-slate-800 mb-3 sm:mb-4 flex items-center gap-2">
                     <svg
                       className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600"
@@ -288,7 +288,7 @@ const ProductProfile = ({ data }) => {
                     </svg>
                     Description
                   </h3>
-                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed break-words">
+                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed wrap-break-words">
                     {product?.description}
                   </p>
                 </div>
@@ -299,7 +299,7 @@ const ProductProfile = ({ data }) => {
                     <p className="text-xs sm:text-sm text-slate-500 mb-1">
                       Créé le
                     </p>
-                    <p className="text-sm sm:text-base lg:text-lg font-semibold text-slate-800 break-words">
+                    <p className="text-sm sm:text-base lg:text-lg font-semibold text-slate-800 wrap-break-words">
                       {formatDate(product?.createdAt)}
                     </p>
                   </div>
@@ -307,7 +307,7 @@ const ProductProfile = ({ data }) => {
                     <p className="text-xs sm:text-sm text-slate-500 mb-1">
                       Mis à jour le
                     </p>
-                    <p className="text-sm sm:text-base lg:text-lg font-semibold text-slate-800 break-words">
+                    <p className="text-sm sm:text-base lg:text-lg font-semibold text-slate-800 wrap-break-words">
                       {formatDate(product?.updatedAt)}
                     </p>
                   </div>
@@ -438,7 +438,7 @@ const ProductProfile = ({ data }) => {
                   </h3>
                   <div className="text-left sm:text-right">
                     <p className="text-xs sm:text-sm text-slate-500">Total</p>
-                    <p className="text-2xl sm:text-3xl font-bold text-green-600 break-words">
+                    <p className="text-2xl sm:text-3xl font-bold text-green-600 wrap-break-words">
                       {formatPrice(totalRevenue)}
                     </p>
                   </div>
@@ -495,7 +495,7 @@ const ProductProfile = ({ data }) => {
                               </span>
                             </td>
                             <td className="px-3 sm:px-6 py-3 sm:py-4">
-                              <span className="text-base sm:text-lg font-bold text-green-600 break-words">
+                              <span className="text-base sm:text-lg font-bold text-green-600 wrap-break-words">
                                 {formatPrice(revenue?.price || 0)}
                               </span>
                             </td>

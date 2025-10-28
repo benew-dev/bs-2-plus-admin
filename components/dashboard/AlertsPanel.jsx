@@ -7,7 +7,7 @@ export default function AlertsPanel({ alerts }) {
     return (
       <div className="bg-green-50 border-l-4 border-green-500 p-3 sm:p-4 rounded-r-lg">
         <div className="flex items-center gap-2 sm:gap-3">
-          <span className="text-xl sm:text-2xl flex-shrink-0">✅</span>
+          <span className="text-xl sm:text-2xl shrink-0">✅</span>
           <div>
             <p className="font-bold text-sm sm:text-base text-green-800">
               Tout va bien !
@@ -43,16 +43,16 @@ export default function AlertsPanel({ alerts }) {
         >
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-sm sm:text-base text-gray-800 break-words">
+              <p className="font-bold text-sm sm:text-base text-gray-800 wrap-break-word">
                 {alert.title}
               </p>
-              <p className="text-xs sm:text-sm text-gray-700 mt-1 break-words">
+              <p className="text-xs sm:text-sm text-gray-700 mt-1 wrap-break-word">
                 {alert.message}
               </p>
               {alert.details && (
                 <ul className="text-xs text-gray-600 mt-2 space-y-1">
                   {alert.details.slice(0, 3).map((detail, i) => (
-                    <li key={i} className="break-words">
+                    <li key={i} className="wrap-break-word">
                       • {detail}
                     </li>
                   ))}
@@ -65,7 +65,7 @@ export default function AlertsPanel({ alerts }) {
             {alert.action && (
               <Link
                 href={alert.action}
-                className="w-full sm:w-auto flex-shrink-0 text-center px-3 py-1.5 sm:py-1 bg-white border border-gray-300 rounded-md text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors"
+                className="w-full sm:w-auto shrink-0 text-center px-3 py-1.5 sm:py-1 bg-white border border-gray-300 rounded-md text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors"
               >
                 {alert.actionText}
               </Link>
