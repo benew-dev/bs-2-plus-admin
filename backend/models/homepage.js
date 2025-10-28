@@ -37,11 +37,12 @@ const homePageSchema = new mongoose.Schema(
       type: [sectionSchema],
       validate: {
         validator: function (sections) {
-          return sections.length === 3;
+          // Permettre entre 0 et 3 sections (au lieu de forcer exactement 3)
+          return sections.length >= 0 && sections.length <= 3;
         },
-        message: "Vous devez avoir exactement 3 sections",
+        message: "Vous devez avoir entre 0 et 3 sections maximum",
       },
-      required: [true, "Les sections sont requises"],
+      default: [], // Initialiser avec un tableau vide
     },
   },
   {
