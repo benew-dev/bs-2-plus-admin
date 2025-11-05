@@ -154,7 +154,7 @@ const OrdersPaidList = ({ listOrdersPaidThisMonth }) => {
               </div>
               <Link
                 href={`/admin/orders/${item?._id}`}
-                className="px-3 py-1.5 bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200 transition-colors text-sm font-medium flex-shrink-0 ml-2"
+                className="px-3 py-1.5 bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200 transition-colors text-sm font-medium shrink-0 ml-2"
               >
                 <i className="fa fa-eye mr-1" aria-hidden="true"></i>
                 <span className="hidden sm:inline">Voir</span>
