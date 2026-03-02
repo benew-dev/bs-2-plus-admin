@@ -210,7 +210,7 @@ const AddArticle = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-3 sm:px-0 pb-6 sm:pb-8">
+    <div className="max-w-4xl mx-auto px-3 sm:px-0 py-4 sm:py-6">
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
           Nouvel Article

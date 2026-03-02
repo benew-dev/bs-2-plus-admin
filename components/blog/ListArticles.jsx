@@ -76,7 +76,7 @@ const ListArticles = ({ data }) => {
           </p>
           <Link
             href="/admin/blog/new"
-            className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-lg sm:rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg font-semibold text-sm sm:text-base"
+            className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg sm:rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg font-semibold text-sm sm:text-base"
           >
             <svg
               className="w-4 h-4 sm:w-5 sm:h-5"
@@ -99,42 +99,13 @@ const ListArticles = ({ data }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-      {/* Header */}
-      <div className="bg-linear-to-r from-indigo-500 to-purple-500 p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-          <div className="flex items-center gap-3 sm:gap-4">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
-              <svg
-                className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                />
-              </svg>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
-                Articles du Blog
-              </h2>
-              <p className="text-xs sm:text-sm text-white/80">
-                {pagination.totalArticles} article
-                {pagination.totalArticles > 1 ? "s" : ""} au total
-              </p>
-            </div>
-          </div>
-          <Link
-            href="/admin/blog/new"
-            className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-indigo-600 rounded-lg sm:rounded-xl hover:bg-indigo-50 transition-all font-semibold text-sm sm:text-base"
-          >
+    <div className="bg-white rounded-lg sm:rounded-2xl shadow-xl border border-slate-200">
+      {/* Header - Sans bouton dupliqué */}
+      <div className="bg-gradient-to-r from-indigo-500 to-purple-500 p-4 sm:p-6 rounded-t-lg sm:rounded-t-2xl">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0">
             <svg
-              className="w-4 h-4 sm:w-5 sm:h-5"
+              className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -143,11 +114,19 @@ const ListArticles = ({ data }) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
               />
             </svg>
-            Nouvel article
-          </Link>
+          </div>
+          <div>
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
+              Articles du Blog
+            </h2>
+            <p className="text-xs sm:text-sm text-white/80">
+              {pagination.totalArticles} article
+              {pagination.totalArticles > 1 ? "s" : ""} au total
+            </p>
+          </div>
         </div>
       </div>
 
