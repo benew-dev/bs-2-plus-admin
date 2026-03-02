@@ -3,18 +3,18 @@ import dynamic from "next/dynamic";
 import Loading from "@/app/loading";
 import { redirect } from "next/navigation";
 
-const ViewArticle = dynamic(() => import("@/components/blog/ViewArticle"), {
+const EditArticle = dynamic(() => import("@/components/blog/EditArticle"), {
   loading: () => <Loading />,
 });
 
 import { getSingleArticle } from "@/backend/utils/server-only-methods";
 
 export const metadata = {
-  title: "Dashboard - Voir Article",
-  description: "Voir un article de blog",
+  title: "Dashboard - Modifier Article",
+  description: "Modifier un article de blog",
 };
 
-const ViewArticlePage = async ({ params }) => {
+const EditArticlePage = async ({ params }) => {
   const { id } = await params;
   const article = await getSingleArticle(id);
 
@@ -23,7 +23,7 @@ const ViewArticlePage = async ({ params }) => {
     redirect("/admin/blog");
   }
 
-  return <ViewArticle article={article} />;
+  return <EditArticle article={article} />;
 };
 
-export default ViewArticlePage;
+export default EditArticlePage;
