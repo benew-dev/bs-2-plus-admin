@@ -210,7 +210,7 @@ const AddArticle = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-3 sm:px-0">
+    <div className="max-w-4xl mx-auto px-3 sm:px-0 pb-6 sm:pb-8">
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
           Nouvel Article
@@ -391,7 +391,7 @@ const AddArticle = () => {
 
             {/* Affichage de l'image */}
             {articleData.coverImage ? (
-              <div className="relative group">
+              <div className="relative group max-h-[250px] sm:max-h-[350px] overflow-hidden">
                 <div className="rounded-lg sm:rounded-xl overflow-hidden border-2 border-slate-200 group-hover:border-indigo-400 transition-all">
                   <CldImage
                     src={articleData.coverImage.public_id}

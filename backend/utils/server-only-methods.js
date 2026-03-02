@@ -502,3 +502,71 @@ export const getTypeStats = async () => {
     };
   }
 };
+
+/**
+ * Récupérer tous les articles du blog
+ */
+export const getArticlesData = async (page = 1, limit = 10) => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/blog?page=${page}&limit=${limit}`,
+      {
+        headers: {
+          Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+      },
+    );
+
+    return {
+      articles: data?.articles || [],
+      pagination: data?.pagination || {
+        currentPage: 1,
+        totalPages: 0,
+        totalArticles: 0,
+        hasMore: false,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    return {
+      articles: [],
+      pagination: {
+        currentPage: 1,
+        totalPages: 0,
+        totalArticles: 0,
+        hasMore: false,
+      },
+    };
+  }
+};
+
+/**
+ * Récupérer un seul article par ID
+ */
+export const getSingleArticle = async (id) => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/blog/${id}`,
+      {
+        headers: {
+          Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+      },
+    );
+
+    return data?.article || null;
+  } catch (error) {
+    console.error("Error fetching single article:", error);
+    return null;
+  }
+};
