@@ -1,7 +1,18 @@
 import React from "react";
+import dynamic from "next/dynamic";
+import Loading from "@/app/loading";
 
-const NewArticle = () => {
-  return <div>NewArticle</div>;
+const AddArticle = dynamic(() => import("@/components/blog/AddArticle"), {
+  loading: () => <Loading />,
+});
+
+export const metadata = {
+  title: "Dashboard - Nouvel Article",
+  description: "Créer un nouvel article de blog",
 };
 
-export default NewArticle;
+const NewArticlePage = () => {
+  return <AddArticle />;
+};
+
+export default NewArticlePage;

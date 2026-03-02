@@ -53,6 +53,7 @@ const articleSchema = new mongoose.Schema(
       {
         type: String,
         trim: true,
+        lowercase: true,
         maxlength: [50, "Un tag ne peut pas dépasser 50 caractères"],
       },
     ],
@@ -84,7 +85,7 @@ articleSchema.index({ title: "text", content: "text", tags: "text" });
 articleSchema.index({ isPublished: 1, publishedAt: -1 });
 articleSchema.index({ author: 1, createdAt: -1 });
 
-// Middleware pre-save pour mettre à jour updatedAt (compatible Mongoose 9)
+// Middleware pre-save (compatible Mongoose 9)
 articleSchema.pre("save", async function () {
   this.updatedAt = Date.now();
 
