@@ -16,6 +16,7 @@ const Sidebar = memo(() => {
   const [openAnalytics, setOpenAnalytics] = useState(false);
   const [openReports, setOpenReports] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openBlog, setOpenBlog] = useState(false);
 
   const isSettings = () => {
     let isTrue;
@@ -66,6 +67,21 @@ const Sidebar = memo(() => {
     switch (pathName) {
       case "/admin/users":
       case `/admin/users/${params?.id}`:
+        isTrue = true;
+        break;
+      default:
+        isTrue = false;
+        break;
+    }
+    return isTrue;
+  };
+
+  const isBlog = () => {
+    let isTrue;
+    switch (pathName) {
+      case "/admin/blog":
+      case "/admin/blog/new":
+      case `/admin/blog/${params?.id}`:
         isTrue = true;
         break;
       default:
@@ -456,6 +472,62 @@ const Sidebar = memo(() => {
                     aria-hidden="true"
                   ></i>
                   <span>Users Stats</span>
+                </Link>
+              </li>
+            </ul>
+          </li>
+
+          {/* Blog Section */}
+          <li className="block">
+            <button
+              onClick={() => {
+                setActivePart("blog");
+                setOpenBlog((prev) => !prev);
+              }}
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-600 rounded-lg transition-colors ${activePart === "blog" && "bg-blue-100 text-blue-600"}`}
+            >
+              <div className="flex items-center gap-3">
+                <i
+                  className="fa fa-blog w-5 text-center"
+                  aria-hidden="true"
+                ></i>
+                <span>Blog</span>
+              </div>
+              <i
+                className={`fa fa-chevron-${openBlog ? "up" : "down"} text-xs`}
+              ></i>
+            </button>
+            <ul className={`mt-1 ml-8 space-y-1 ${!openBlog && "hidden"}`}>
+              <li>
+                <Link
+                  onClick={() => {
+                    setActivePart("blog");
+                    closeMobileMenu();
+                  }}
+                  href="/admin/blog/new"
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${pathName === "/admin/blog/new" && "bg-blue-50 text-blue-600 font-medium"}`}
+                >
+                  <i
+                    className="fa fa-plus w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
+                  <span>New Article</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={() => {
+                    setActivePart("blog");
+                    closeMobileMenu();
+                  }}
+                  href="/admin/blog"
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${isBlog() && pathName !== "/admin/blog/new" && "bg-blue-50 text-blue-600 font-medium"}`}
+                >
+                  <i
+                    className="fa fa-newspaper w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
+                  <span>Articles</span>
                 </Link>
               </li>
             </ul>
